@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import { response } from 'express';
+import { map, Observable, tap } from 'rxjs';
 import { settings } from 'settings/dev.settings';
 import { ApiResponse } from 'src/models/apiResponse.model';
 import { UserData } from 'src/models/userData.model';
@@ -15,27 +17,28 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  public login(login: string, password: string) {
+  public login(login: string, password: string): Observable<UserData> {
     return this.http
       .post<ApiResponse>(this.authEndpoint + '/login', { login, password })
-      .subscribe({
-        next: (response: ApiResponse) => {
+      .pipe(
+        tap((response: ApiResponse) => {
           this.userData.set(response.data.user);
           this.isAuthenticated.set(true);
-        },
-      });
+        }),
+        map((response: ApiResponse) => response.data.user),
+      );
   }
 
-  public logout() {
-    return this.http.post(this.authEndpoint + '/login', {}).subscribe({
-      next: () => {
+  public logout(): Observable<object> {
+    return this.http.post(this.authEndpoint + '/login', {}).pipe(
+      tap(() => {
         this.userData.set(null);
         this.isAuthenticated.set(false);
-      },
-    });
+      }),
+    );
   }
 
-  public refresh() {
-    return this.http.post(this.authEndpoint + '/refresh', {}).subscribe();
+  public refresh(): Observable<object> {
+    return this.http.post(this.authEndpoint + '/refresh', {});
   }
 }
