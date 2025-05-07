@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { tap } from 'rxjs';
 import { settings } from 'settings/dev.settings';
 import { ApiResponse } from 'src/models/apiResponse.model';
 import { UserData } from 'src/models/userData.model';
@@ -17,26 +16,26 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   public login(login: string, password: string) {
-    this.http
+    return this.http
       .post<ApiResponse>(this.authEndpoint + '/login', { login, password })
-      .pipe(
-        tap((response) => {
+      .subscribe({
+        next: (response: ApiResponse) => {
           this.userData.set(response.data.user);
           this.isAuthenticated.set(true);
-        }),
-      );
+        },
+      });
   }
 
   public logout() {
-    this.http.post(this.authEndpoint + '/login', {}).pipe(
-      tap(() => {
+    return this.http.post(this.authEndpoint + '/login', {}).subscribe({
+      next: () => {
         this.userData.set(null);
         this.isAuthenticated.set(false);
-      }),
-    );
+      },
+    });
   }
 
   public refresh() {
-    this.http.post(this.authEndpoint + '/refresh', {});
+    return this.http.post(this.authEndpoint + '/refresh', {}).subscribe();
   }
 }
