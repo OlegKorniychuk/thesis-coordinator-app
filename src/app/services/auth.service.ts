@@ -4,6 +4,7 @@ import { map, Observable, tap } from 'rxjs';
 import { settings } from 'settings/dev.settings';
 import { ApiResponse } from 'src/app/models/apiResponse.model';
 import { UserData } from 'src/app/models/userData.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,10 @@ export class AuthService {
 
   private authEndpoint: string = settings.apiUrl + '/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+  ) {}
 
   public login(login: string, password: string): Observable<UserData> {
     return this.http
@@ -39,5 +43,15 @@ export class AuthService {
 
   public refresh(): Observable<object> {
     return this.http.post(this.authEndpoint + '/refresh', {});
+  }
+
+  public pullUserData(): Observable<UserData> {
+    return this.http.get<ApiResponse>(this.authEndpoint + '/me').pipe(
+      tap((response: ApiResponse) => {
+        this.userData.set(response.data.user);
+        this.isAuthenticated.set(true);
+      }),
+      map((response: ApiResponse) => response.data.user),
+    );
   }
 }

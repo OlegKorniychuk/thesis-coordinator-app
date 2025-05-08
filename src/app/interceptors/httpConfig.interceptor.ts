@@ -9,6 +9,7 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { SnackbarService } from '../services/snackbar.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 export function httpConfigInterceptor(
   req: HttpRequest<unknown>,
@@ -17,6 +18,7 @@ export function httpConfigInterceptor(
   const snackbarService = inject(SnackbarService);
   const authService = inject(AuthService);
   const router = inject(Router);
+  const cookieService = inject(CookieService);
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
@@ -41,6 +43,11 @@ export function httpConfigInterceptor(
             snackbarService.showErrorSnackbar(
               'Сесія закінчилась. Авторизуйтесь повторно',
             );
+            router.navigate(['/login']);
+            return of();
+          }
+          if (!cookieService.check('authToken')) {
+            snackbarService.showErrorSnackbar('Вам потрібно авторизуватись');
             router.navigate(['/login']);
             return of();
           }

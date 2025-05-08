@@ -5,6 +5,8 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpConfigInterceptor } from 'src/app/interceptors/httpConfig.interceptor';
 import { authInterceptor } from 'src/app/interceptors/auth.interceptor';
+import { inject, provideAppInitializer } from '@angular/core';
+import { AuthService } from './app/services/auth.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -12,5 +14,9 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(
       withInterceptors([httpConfigInterceptor, authInterceptor]),
     ),
+    provideAppInitializer(() => {
+      const authService = inject(AuthService);
+      return authService.pullUserData();
+    }),
   ],
 }).catch((err) => console.error(err));
