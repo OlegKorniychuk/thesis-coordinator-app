@@ -46,7 +46,7 @@ export function httpConfigInterceptor(
             router.navigate(['/login']);
             return of();
           }
-          if (!cookieService.check('authToken')) {
+          if (!cookieService.check('refreshToken')) {
             snackbarService.showErrorSnackbar('Вам потрібно авторизуватись');
             router.navigate(['/login']);
             return of();
