@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+html {
+  color-scheme: light dark;
+  @include mat.theme(
+    (
+      color: mat.$azure-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
 
 * {
   box-sizing: border-box;
@@ -13,6 +25,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   display: flex;
   flex-direction: column;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
 
 app-root {
@@ -25,4 +39,15 @@ app-root {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.error-snackbar {
+  text-align: center;
+  @include mat.snack-bar-overrides(
+    (
+      container-color: var(--mat-sys-error-container),
+      supporting-text-color: var(--mat-sys-on-error-container),
+      supporting-text-weight: bold,
+    )
+  );
 }

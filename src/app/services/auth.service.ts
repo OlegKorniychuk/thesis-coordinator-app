@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { response } from 'express';
 import { map, Observable, tap } from 'rxjs';
 import { settings } from 'settings/dev.settings';
-import { ApiResponse } from 'src/models/apiResponse.model';
-import { UserData } from 'src/models/userData.model';
+import { ApiResponse } from 'src/app/models/apiResponse.model';
+import { UserData } from 'src/app/models/userData.model';
 
 @Injectable({
   providedIn: 'root',
