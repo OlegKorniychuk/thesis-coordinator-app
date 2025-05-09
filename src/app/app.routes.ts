@@ -5,10 +5,12 @@ import { DiplomaCycleComponent } from 'src/app/admin/diplomaCycle/diplomaCycle.c
 import { TeachersComponent } from 'src/app/admin/teachers/teachers.component';
 import { ArchiveComponent } from 'src/app/admin/archive/archive.component';
 import { AdminComponent } from 'src/app/admin/admin.component';
+import { canLogin } from './guards/canLogin.guard';
 
 export const routes: Routes = [
   {
     path: 'login',
+    canActivate: [canLogin],
     loadComponent: () =>
       import('src/app/auth/auth.component').then((c) => AuthComponent),
   },
