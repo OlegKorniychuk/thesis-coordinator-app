@@ -1,1 +1,26 @@
-<div>AUTHORIZE PLS</div>
+<div class="outer-container">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <mat-form-field>
+          <mat-label for="login">Логін</mat-label>
+          <input matInput type="text" id="login" formControlName="login" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label for="password">Пароль</mat-label>
+          <input
+            matInput
+            type="text"
+            id="password"
+            formControlName="password"
+          />
+        </mat-form-field>
+
+        <mat-divider class="divider" />
+
+        <button mat-stroked-button type="submit">Авторизуватись</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
