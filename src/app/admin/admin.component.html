@@ -1,1 +1,14 @@
-<div>Wellcome, admin!</div>
+<div>
+  <div>
+    <nav>
+      <li>
+        <a routerLink="/admin/diploma-cycle" routerLinkActive="active">
+          Поточний дипломний цикл
+        </a>
+        <a routerLink="/admin/teachers" routerLinkActive="active">Викладачі</a>
+        <a routerLink="/admin/archive" routerLinkActive="active">Архів</a>
+      </li>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+</div>
