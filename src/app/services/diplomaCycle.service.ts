@@ -29,4 +29,25 @@ export class DiplomaCycleService {
         map((response: ApiResponse) => response.data.diplomaCycle),
       );
   }
+
+  public startNewDiplomaCycle(
+    year: number,
+    start_date: Date,
+    supervisor_selection_end_date: Date,
+    topic_selection_end_date: Date,
+  ): Observable<DiplomaCycleData> {
+    return this.http
+      .post<ApiResponse>(this.diplomaCycleEndpoint, {
+        year,
+        start_date,
+        supervisor_selection_end_date,
+        topic_selection_end_date,
+      })
+      .pipe(
+        tap((response: ApiResponse) => {
+          this.diplomaCycleData.set(response.data.newCycle);
+        }),
+        map((response: ApiResponse) => response.data.newCycle),
+      );
+  }
 }
