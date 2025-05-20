@@ -1,0 +1,41 @@
+<div>
+  <table mat-table [dataSource]="teachers()" class="mat-elevation-z8">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>ПІБ</th>
+      <td mat-cell *matCellDef="let element">
+        {{`${element.last_name} ${element.first_name} ${element.second_name}`}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>Посада</th>
+      <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="degree">
+      <th mat-header-cell *matHeaderCellDef>Ступінь</th>
+      <td mat-cell *matCellDef="let element">{{ element.academic_degree }}</td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="['index', 'name', 'position', 'degree']"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['index', 'name', 'position', 'degree']"
+    ></tr>
+  </table>
+
+  <div class="controls">
+    <button mat-flat-button (click)="openDialog()">Додати Викладача</button>
+
+    <mat-paginator [length]="totalCount" hidePageSize="true" pageSize="10">
+    </mat-paginator>
+  </div>
+</div>
