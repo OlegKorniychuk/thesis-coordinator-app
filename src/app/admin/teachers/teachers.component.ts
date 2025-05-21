@@ -1,7 +1,8 @@
-import { Component, Signal } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import {
   MatPaginatorIntl,
   MatPaginatorModule,
+  PageEvent,
 } from '@angular/material/paginator';
 import { TeachersService } from './teachers.service';
 import { Teacher } from 'src/app/models/teacher.model';
@@ -10,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddTeacherComponent } from './addTeacher/addTeacher.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'tc-teachers',
@@ -20,20 +22,22 @@ import { AddTeacherComponent } from './addTeacher/addTeacher.component';
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
+    MatDividerModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }],
 })
 export class TeachersComponent {
   public teachers: Signal<Teacher[]>;
   public totalCount: Signal<number>;
+  public resultsPerPage: number = 10;
 
   constructor(
     private teachersService: TeachersService,
     private dialog: MatDialog,
   ) {
     this.teachers = teachersService.teachers;
-    this.totalCount = teachersService.totalCount;
-    this.teachersService.getTeachers().subscribe();
+    this.totalCount = this.teachersService.totalCount;
+    this.teachersService.getTeachers(1, this.resultsPerPage).subscribe();
   }
 
   openDialog(): void {
@@ -42,5 +46,12 @@ export class TeachersComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
+  }
+
+  onPageChange(event: PageEvent) {
+    console.log(event.pageIndex);
+    this.teachersService
+      .getTeachers(event.pageIndex + 1, this.resultsPerPage)
+      .subscribe();
   }
 }
