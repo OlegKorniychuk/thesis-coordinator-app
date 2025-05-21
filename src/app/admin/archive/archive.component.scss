@@ -1,0 +1,17 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.divider {
+  margin-bottom: 20px;
+}
+
+.divider-top {
+  margin-top: 20px;
+}
+
+.header {
+  text-align: center;
+}

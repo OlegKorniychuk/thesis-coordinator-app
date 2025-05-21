@@ -49,7 +49,6 @@ export class TeachersComponent {
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event.pageIndex);
     this.teachersService
       .getTeachers(event.pageIndex + 1, this.resultsPerPage)
       .subscribe();
