@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { DiplomaCycleService } from '../services/diplomaCycle.service';
 
 @Component({
   selector: 'tc-auth',
@@ -35,6 +36,7 @@ export class AuthComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private diplomaCycleService: DiplomaCycleService,
   ) {}
 
   public onSubmit() {
@@ -50,10 +52,10 @@ export class AuthComponent {
       password: string;
     };
 
-    this.authService.login(login, password).subscribe({
-      next: (userData) => {
+    this.authService.login(login, password).subscribe((userData) => {
+      this.diplomaCycleService.getDiplomaCycleData().subscribe(() => {
         this.router.navigate([`/${userData.role}`]);
-      },
+      });
     });
   }
 }

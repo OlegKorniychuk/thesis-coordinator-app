@@ -25,3 +25,13 @@ mat-toolbar-row {
 .nav-link {
   margin: 5px;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.logout {
+  position: absolute;
+  right: 10px;
+}

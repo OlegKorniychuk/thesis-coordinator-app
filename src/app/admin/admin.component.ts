@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { LogoutComponent } from '../components/logout/logout.component';
 
 @Component({
   selector: 'tc-admin',
@@ -16,6 +17,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
     MatToolbarModule,
     MatButtonModule,
     MatDividerModule,
+    LogoutComponent,
   ],
 })
 export class AdminComponent {}
