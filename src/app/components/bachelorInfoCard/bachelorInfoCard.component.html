@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    @if (bachelorData().student) {
+      <h3>
+        {{ bachelorData().student.last_name }}
+        {{ bachelorData().student.first_name }}
+        {{ bachelorData().student.second_name }},
+        {{ bachelorData().student.group }}
+      </h3>
+    } @else {
+      <p>Завантаження...</p>
+    }
+  </mat-card-header>
+  <mat-card-content>
+    <p>Тема: {{ topicName() }}</p>
+  </mat-card-content>
+</mat-card>

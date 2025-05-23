@@ -1,0 +1,67 @@
+<mat-card>
+  <mat-card-header> Додати Викладача </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="newBachelorForm" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field>
+        <mat-label for="last_name">Прізвище</mat-label>
+        <input
+          matInput
+          type="text"
+          id="last_name"
+          formControlName="last_name"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="first_name">Ім'я</mat-label>
+        <input
+          matInput
+          type="text"
+          id="first_name"
+          formControlName="first_name"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="second_name">По батькові</mat-label>
+        <input
+          matInput
+          type="text"
+          id="second_name"
+          formControlName="second_name"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="group">Група</mat-label>
+        <input matInput type="string" id="group" formControlName="group" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="specialty">Спеціальність</mat-label>
+        <input
+          matInput
+          type="string"
+          id="specialty"
+          formControlName="specialty"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="academic_program">Навчальна Програма</mat-label>
+        <input
+          matInput
+          type="string"
+          id="academic_program"
+          formControlName="academic_program"
+        />
+      </mat-form-field>
+
+      <mat-divider class="divider" />
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="form-controls">
+    <button mat-flat-button (click)="onSubmit()">Додати</button>
+    <button mat-flat-button (click)="onCancelClick()">Скасувати</button>
+  </mat-card-actions>
+</mat-card>

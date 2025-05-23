@@ -1,3 +1,34 @@
 <div>
-  <div>Current diploma cycle info</div>
+  <div class="controls">
+    <button mat-flat-button (click)="openAddBachelorDialog()">
+      Додати студента
+    </button>
+    <button mat-flat-button>Додати керівника</button>
+  </div>
+  <div>
+    <h2>Студенти без керівника</h2>
+    <div>
+      @for (bachelor of bachelorsWithoutSupervisor(); track $index) {
+        <div class="bachelor-card">
+          <tc-bachelor-info-card [bachelorData]="bachelor">
+          </tc-bachelor-info-card>
+        </div>
+      }
+      @for (supervisor of supervisorsWithBachelors(); track $index) {
+        <h2>
+          {{ supervisor.teacher.last_name }}
+          {{ supervisor.teacher.first_name }}
+          {{ supervisor.teacher.second_name }}
+        </h2>
+        <div>
+          @for (bachelor of supervisor.bachelors; track $index) {
+            <p>
+              {{ bachelor.student.last_name }} {{ bachelor.student.first_name }}
+              {{ bachelor.student.second_name }}
+            </p>
+          }
+        </div>
+      }
+    </div>
+  </div>
 </div>
