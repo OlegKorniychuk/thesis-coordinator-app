@@ -8,12 +8,13 @@ import { BachelorService } from 'src/app/services/bachelor.service';
 import { SupervisorService } from 'src/app/services/supervisor.service';
 import { AddStudentComponent } from './addStudent/addStudent.component';
 import { AddSupervisorComponent } from './addSupervisor/addSupervisor.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'tc-current-diploma-cycle',
   templateUrl: './currentDiplomaCycle.component.html',
   styleUrl: './currentDiplomaCycle.component.scss',
-  imports: [BachelorInfoCardComponent, MatButtonModule],
+  imports: [BachelorInfoCardComponent, MatButtonModule, MatDividerModule],
 })
 export class CurrentDiplomaCycleComponent implements OnInit {
   public supervisorsWithBachelors: Signal<SupervisorWithBachelors[]>;

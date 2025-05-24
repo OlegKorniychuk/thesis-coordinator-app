@@ -8,7 +8,11 @@
     </button>
   </div>
   <div>
-    <h2>Студенти без керівника</h2>
+    <div class="supervisor-info">
+      <h2>Студенти без керівника</h2>
+      <mat-divider vertical="true"></mat-divider>
+      <p class="bachelors-count">{{ bachelorsWithoutSupervisor().length }}</p>
+    </div>
     <div>
       @for (bachelor of bachelorsWithoutSupervisor(); track $index) {
         <div class="bachelor-card">
@@ -17,17 +21,23 @@
         </div>
       }
       @for (supervisor of supervisorsWithBachelors(); track $index) {
-        <h2>
-          {{ supervisor.teacher.last_name }}
-          {{ supervisor.teacher.first_name }}
-          {{ supervisor.teacher.second_name }}
-        </h2>
+        <div class="supervisor-info">
+          <h2>
+            {{ supervisor.teacher.last_name }}
+            {{ supervisor.teacher.first_name }}
+            {{ supervisor.teacher.second_name }}
+          </h2>
+          <mat-divider vertical="true"></mat-divider>
+          <p class="bachelors-count">
+            {{ supervisor._count.bachelors }}/{{ supervisor.max_load }}
+          </p>
+        </div>
         <div>
           @for (bachelor of supervisor.bachelors; track $index) {
-            <p>
-              {{ bachelor.student.last_name }} {{ bachelor.student.first_name }}
-              {{ bachelor.student.second_name }}
-            </p>
+            <div class="bachelor-card">
+              <tc-bachelor-info-card [bachelorData]="bachelor">
+              </tc-bachelor-info-card>
+            </div>
           }
         </div>
       }

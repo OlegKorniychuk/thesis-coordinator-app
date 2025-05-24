@@ -1,5 +1,5 @@
-<mat-card>
-  <mat-card-header> Додати Викладача </mat-card-header>
+<mat-card class="dialog-container">
+  <mat-card-header> Додати Керівника </mat-card-header>
   <mat-card-content>
     <form [formGroup]="newSupervisorForm" (ngSubmit)="onSubmit()" class="form">
       <mat-form-field>
@@ -15,7 +15,7 @@
           (focus)="filter()"
         />
         <mat-autocomplete requireSelection #auto="matAutocomplete">
-          @for (teacher of teacherOptions(); track teacher) {
+          @for (teacher of filteredOptions; track teacher) {
             <mat-option [value]="teacher.name">{{ teacher.name }}</mat-option>
           }
         </mat-autocomplete>
