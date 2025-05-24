@@ -23,4 +23,18 @@ export class SupervisorService {
       map((response: ApiResponse) => response.data.supervisors),
     );
   }
+
+  public createSupervisor(teacherId: string, maxLoad: number) {
+    return this.http
+      .post<ApiResponse>(this.supervisorsEndpoint, {
+        teacherId: teacherId,
+        maxLoad: maxLoad,
+      })
+      .pipe(
+        tap((response) => {
+          this.getSupervisors().subscribe();
+        }),
+        map((response) => response.data.newSupervisor),
+      );
+  }
 }

@@ -7,6 +7,7 @@ import { SupervisorWithBachelors } from 'src/app/models/supervisor.model';
 import { BachelorService } from 'src/app/services/bachelor.service';
 import { SupervisorService } from 'src/app/services/supervisor.service';
 import { AddStudentComponent } from './addStudent/addStudent.component';
+import { AddSupervisorComponent } from './addSupervisor/addSupervisor.component';
 
 @Component({
   selector: 'tc-current-diploma-cycle',
@@ -51,8 +52,9 @@ export class CurrentDiplomaCycleComponent implements OnInit {
 
   openAddBachelorDialog(): void {
     const dialogRef = this.dialog.open(AddStudentComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      this.bachelorService.getBachelors().subscribe();
-    });
+  }
+
+  openAddSupervisorDialog(): void {
+    const dialogRef = this.dialog.open(AddSupervisorComponent);
   }
 }

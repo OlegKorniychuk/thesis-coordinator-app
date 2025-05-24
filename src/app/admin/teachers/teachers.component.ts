@@ -4,7 +4,7 @@ import {
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
-import { TeachersService } from './teachers.service';
+import { TeachersService } from 'src/app/services/teachers.service';
 import { Teacher } from 'src/app/models/teacher.model';
 import { MyCustomPaginatorIntl } from 'src/app/components/localizedPaginator.component';
 import { MatTableModule } from '@angular/material/table';

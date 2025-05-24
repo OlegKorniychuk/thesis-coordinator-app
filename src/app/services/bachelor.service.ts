@@ -31,7 +31,7 @@ export class BachelorService {
     group: string,
     specialty: string,
     academicProgram: string,
-  ): Observable<BachelorFullData> {
+  ) {
     return this.http
       .post<ApiResponse>(this.bachelorsEndpoint, {
         first_name: firstName,
