@@ -41,3 +41,9 @@ export type BachelorUpdateData = {
   specialty?: string;
   academicProgram?: string;
 };
+
+export type TopicConfirmData = {
+  bachelorId: string;
+  topicId: string;
+  refinedTopic?: string;
+};

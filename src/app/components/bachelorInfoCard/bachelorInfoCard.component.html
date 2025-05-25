@@ -21,7 +21,11 @@
     </mat-card-content>
   </mat-card>
   <div class="admin-buttons">
-    <button mat-flat-button [disabled]="disableConfirmTopic()">
+    <button
+      mat-flat-button
+      [disabled]="disableConfirmTopic()"
+      (click)="onConfirmTopicClick()"
+    >
       Затвердити
     </button>
     <button mat-raised-button (click)="onEditBachelorClick()">

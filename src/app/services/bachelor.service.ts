@@ -3,7 +3,11 @@ import { Injectable, signal } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { settings } from 'settings/dev.settings';
 import { ApiResponse } from 'src/app/models/apiResponse.model';
-import { BachelorFullData, BachelorUpdateData } from '../models/bachelor.model';
+import {
+  BachelorFullData,
+  BachelorUpdateData,
+  TopicConfirmData,
+} from '../models/bachelor.model';
 
 @Injectable({
   providedIn: 'root',
@@ -58,5 +62,16 @@ export class BachelorService {
         }),
         map((response: ApiResponse) => response.data.updatedBachelor),
       );
+  }
+
+  public confirmTopic(updateData: TopicConfirmData) {
+    const { bachelorId, topicId, refinedTopic } = updateData;
+    const body = refinedTopic ? { refinedTopic } : {};
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/topics/${topicId}/confirm`,
+        body,
+      )
+      .pipe(tap(() => this.getBachelors().subscribe()));
   }
 }

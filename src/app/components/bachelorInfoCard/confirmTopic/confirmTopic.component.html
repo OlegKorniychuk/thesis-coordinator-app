@@ -1,0 +1,23 @@
+<mat-card class="dialog-container">
+  <mat-card-header> Затвердити тему </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="confirmTopicForm" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field>
+        <mat-label for="refinedTopic">Тема</mat-label>
+        <textarea
+          matInput
+          type="text"
+          id="refinedTopic"
+          formControlName="refinedTopic"
+        >
+        </textarea>
+      </mat-form-field>
+
+      <mat-divider class="divider" />
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="form-controls">
+    <button mat-flat-button (click)="onSubmit()">Затвердити</button>
+    <button mat-flat-button (click)="onCancel()">Скасувати</button>
+  </mat-card-actions>
+</mat-card>

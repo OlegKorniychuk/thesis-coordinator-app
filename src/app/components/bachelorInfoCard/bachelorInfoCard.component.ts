@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { BachelorFullData, TopicStatus } from 'src/app/models/bachelor.model';
 import { EditBachelorComponent } from './editBachelor/editBachelor.component';
+import { ConfirmTopicComponent } from './confirmTopic/confirmTopic.component';
 
 @Component({
   selector: 'tc-bachelor-info-card',
@@ -59,6 +60,14 @@ export class BachelorInfoCardComponent {
 
   public onEditBachelorClick() {
     this.dialog.open(EditBachelorComponent, {
+      data: {
+        bachelorData: this.bachelorData(),
+      },
+    });
+  }
+
+  public onConfirmTopicClick() {
+    this.dialog.open(ConfirmTopicComponent, {
       data: {
         bachelorData: this.bachelorData(),
       },
