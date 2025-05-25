@@ -56,3 +56,11 @@ app-root {
 .dialog-container {
   width: 500px;
 }
+
+.button-danger {
+  @include mat.button-overrides(
+    (
+      filled-container-color: orange,
+    )
+  );
+}

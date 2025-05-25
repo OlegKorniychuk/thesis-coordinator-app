@@ -9,6 +9,7 @@ import { SupervisorService } from 'src/app/services/supervisor.service';
 import { AddStudentComponent } from './addStudent/addStudent.component';
 import { AddSupervisorComponent } from './addSupervisor/addSupervisor.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { EndDiplomaCycleComponent } from './endDiplomaCycle/endDiplomaCycle.component';
 
 @Component({
   selector: 'tc-current-diploma-cycle',
@@ -57,5 +58,9 @@ export class CurrentDiplomaCycleComponent implements OnInit {
 
   openAddSupervisorDialog(): void {
     const dialogRef = this.dialog.open(AddSupervisorComponent);
+  }
+
+  openEndDiplomaCycleDialog(): void {
+    const dialogRef = this.dialog.open(EndDiplomaCycleComponent);
   }
 }

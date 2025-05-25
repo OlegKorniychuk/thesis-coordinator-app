@@ -50,4 +50,10 @@ export class DiplomaCycleService {
         map((response: ApiResponse) => response.data.newCycle),
       );
   }
+
+  public endDiplomaCycle() {
+    return this.http
+      .patch(this.diplomaCycleEndpoint + '/end-current-cycle', {})
+      .pipe(tap(() => this.getDiplomaCycleData().subscribe()));
+  }
 }
