@@ -31,3 +31,13 @@ export type BachelorFullData = {
   student: Student;
   topic: Topic | null;
 };
+
+export type BachelorUpdateData = {
+  supervisorId?: string;
+  firstName?: string;
+  secondName?: string;
+  lastName?: string;
+  group?: string;
+  specialty?: string;
+  academicProgram?: string;
+};

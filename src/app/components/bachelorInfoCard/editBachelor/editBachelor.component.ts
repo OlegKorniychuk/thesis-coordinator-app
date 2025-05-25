@@ -20,7 +20,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BachelorFullData } from 'src/app/models/bachelor.model';
+import {
+  BachelorFullData,
+  BachelorUpdateData,
+} from 'src/app/models/bachelor.model';
+import { BachelorService } from 'src/app/services/bachelor.service';
 import { SupervisorService } from 'src/app/services/supervisor.service';
 
 @Component({
@@ -54,6 +58,7 @@ export class EditBachelorComponent implements OnInit {
 
   constructor(
     private supervisorService: SupervisorService,
+    private bachelorService: BachelorService,
     private dialogRef: MatDialogRef<EditBachelorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { bachelorData: BachelorFullData },
   ) {
@@ -61,7 +66,9 @@ export class EditBachelorComponent implements OnInit {
       this.supervisorService
         .supervisors()
         .filter(
-          (supervisor) => supervisor._count.bachelors < supervisor.max_load,
+          (supervisor) =>
+            supervisor._count.bachelors < supervisor.max_load &&
+            supervisor.supervisor_id !== this.data.bachelorData.supervisor_id,
         )
         .map((supervisor) => ({
           id: supervisor.supervisor_id,
@@ -73,16 +80,16 @@ export class EditBachelorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
+    const bachelorData: BachelorFullData = this.data.bachelorData;
 
     this.updateBachelorForm.setValue({
       supervisorFullName: 'Поточний керівник',
-      firstName: this.data.bachelorData.student.first_name,
-      secondName: this.data.bachelorData.student.second_name,
-      lastName: this.data.bachelorData.student.last_name,
-      group: this.data.bachelorData.student.group,
-      specialty: this.data.bachelorData.student.specialty,
-      academicProgram: this.data.bachelorData.student.academic_program,
+      firstName: bachelorData.student.first_name,
+      secondName: bachelorData.student.second_name,
+      lastName: bachelorData.student.last_name,
+      group: bachelorData.student.group,
+      specialty: bachelorData.student.specialty,
+      academicProgram: bachelorData.student.academic_program,
     });
 
     console.log(this.updateBachelorForm.value);
@@ -95,7 +102,58 @@ export class EditBachelorComponent implements OnInit {
     );
   }
 
-  public onSubmit() {}
+  public onSubmit() {
+    const updateData: BachelorUpdateData = {};
+    const formValue = this.updateBachelorForm.value;
+    const bachelorData: BachelorFullData = this.data.bachelorData;
+    const supervisorId: string = this.supervisorOptions().find(
+      (supervisor) => supervisor.name === formValue.supervisorFullName,
+    )!.id;
+
+    if (
+      formValue.firstName &&
+      formValue.firstName !== bachelorData.student.first_name
+    ) {
+      updateData.firstName = formValue.firstName;
+    }
+    if (
+      formValue.secondName &&
+      formValue.secondName !== bachelorData.student.second_name
+    ) {
+      updateData.secondName = formValue.secondName;
+    }
+    if (
+      formValue.lastName &&
+      formValue.lastName !== bachelorData.student.last_name
+    ) {
+      updateData.lastName = formValue.lastName;
+    }
+    if (formValue.group && formValue.group !== bachelorData.student.group) {
+      updateData.group = formValue.group;
+    }
+    if (
+      formValue.specialty &&
+      formValue.specialty !== bachelorData.student.specialty
+    ) {
+      updateData.specialty = formValue.specialty;
+    }
+    if (
+      formValue.academicProgram &&
+      formValue.academicProgram !== bachelorData.student.academic_program
+    ) {
+      updateData.academicProgram = formValue.academicProgram;
+    }
+    if (
+      formValue.supervisorFullName &&
+      formValue.supervisorFullName !== 'Поточний керівник'
+    ) {
+      updateData.supervisorId = supervisorId;
+    }
+
+    this.bachelorService
+      .updateBachelor(bachelorData.bachelor_id, updateData)
+      .subscribe(() => this.dialogRef.close());
+  }
   public onCancelClick() {
     this.dialogRef.close();
   }
