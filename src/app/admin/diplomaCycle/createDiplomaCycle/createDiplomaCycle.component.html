@@ -1,0 +1,53 @@
+<div>
+  <mat-card class="card">
+    <mat-card-title>
+      Немає активного дипломного періоду - почати новий.
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="newCycleForm" (ngSubmit)="onSubmit()" class="form">
+        <mat-form-field>
+          <mat-label for="year">Рік</mat-label>
+          <input matInput type="number" id="year" formControlName="year" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label for="start_date">Дата початку</mat-label>
+          <input
+            matInput
+            type="date"
+            id="start_date"
+            formControlName="start_date"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label for="supervisor_selection_end_date"
+            >Дата закінчення вибору керівників</mat-label
+          >
+          <input
+            matInput
+            type="date"
+            id="supervisor_selection_end_date"
+            formControlName="supervisor_selection_end_date"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label for="topic_selection_end_date"
+            >Дата закінчення вибору тем</mat-label
+          >
+          <input
+            matInput
+            type="date"
+            id="topic_selection_end_date"
+            formControlName="topic_selection_end_date"
+          />
+        </mat-form-field>
+
+        <mat-divider class="divider" />
+
+        <button mat-stroked-button type="submit">Почати новий період</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   color-scheme: light dark;
   @include mat.theme(
@@ -12,11 +18,6 @@ html {
   );
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 html,
 body {
   height: 100%;
@@ -48,6 +49,18 @@ app-root {
       container-color: var(--mat-sys-error-container),
       supporting-text-color: var(--mat-sys-on-error-container),
       supporting-text-weight: bold,
+    )
+  );
+}
+
+.dialog-container {
+  width: 500px;
+}
+
+.button-danger {
+  @include mat.button-overrides(
+    (
+      filled-container-color: orange,
     )
   );
 }

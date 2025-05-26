@@ -1,1 +1,48 @@
-<div>Wellcome, admin!</div>
+<div>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <div class="toolbar">
+        <div>Сторінка Адміністратора</div>
+        <tc-logout class="logout"></tc-logout>
+      </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-link">
+            <a
+              mat-stroked-button
+              routerLink="/admin/diploma-cycle"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Дипломний цикл
+            </a>
+          </li>
+          <li class="nav-link">
+            <a
+              mat-stroked-button
+              routerLink="/admin/teachers"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Викладачі
+            </a>
+          </li>
+          <li class="nav-link">
+            <a
+              mat-stroked-button
+              routerLink="/admin/archive"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Архів
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <router-outlet></router-outlet>
+</div>

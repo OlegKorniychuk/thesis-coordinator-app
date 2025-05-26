@@ -1,0 +1,53 @@
+<div>
+  <div class="controls">
+    <button mat-flat-button (click)="openAddBachelorDialog()">
+      Додати студента
+    </button>
+    <button mat-flat-button (click)="openAddSupervisorDialog()">
+      Додати керівника
+    </button>
+    <button
+      mat-flat-button
+      (click)="openEndDiplomaCycleDialog()"
+      class="button-danger"
+    >
+      Завершити дипломний період
+    </button>
+  </div>
+  <div>
+    <div class="supervisor-info">
+      <h2>Студенти без керівника</h2>
+      <mat-divider vertical="true"></mat-divider>
+      <p class="bachelors-count">{{ bachelorsWithoutSupervisor().length }}</p>
+    </div>
+    <div>
+      @for (bachelor of bachelorsWithoutSupervisor(); track $index) {
+        <div class="bachelor-card">
+          <tc-bachelor-info-card [bachelorData]="bachelor">
+          </tc-bachelor-info-card>
+        </div>
+      }
+      @for (supervisor of supervisorsWithBachelors(); track $index) {
+        <div class="supervisor-info">
+          <h2>
+            {{ supervisor.teacher.last_name }}
+            {{ supervisor.teacher.first_name }}
+            {{ supervisor.teacher.second_name }}
+          </h2>
+          <mat-divider vertical="true"></mat-divider>
+          <p class="bachelors-count">
+            {{ supervisor._count.bachelors }}/{{ supervisor.max_load }}
+          </p>
+        </div>
+        <div>
+          @for (bachelor of supervisor.bachelors; track $index) {
+            <div class="bachelor-card">
+              <tc-bachelor-info-card [bachelorData]="bachelor">
+              </tc-bachelor-info-card>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

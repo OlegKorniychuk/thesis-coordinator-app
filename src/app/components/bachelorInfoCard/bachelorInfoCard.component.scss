@@ -1,0 +1,41 @@
+@use "@angular/material" as mat;
+
+.bachelor-card-container {
+  display: flex;
+  height: fit-content;
+}
+
+.bachelor-card {
+  width: 80%;
+}
+
+.admin-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 5px;
+}
+
+.topic-status {
+  display: flex;
+}
+
+.status-confirmed {
+  color: green;
+  margin-left: 2px;
+}
+
+.status-in-progress {
+  color: var(--mat-sys-on-primary-container);
+  margin-left: 2px;
+}
+
+.status-on-confirmation {
+  color: var(--mat-sys-on-tertiary-container);
+  margin-left: 2px;
+}
+
+.status-absent {
+  color: grey;
+  margin-left: 2px;
+}

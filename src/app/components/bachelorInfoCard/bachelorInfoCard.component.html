@@ -1,0 +1,35 @@
+<div class="bachelor-card-container">
+  <mat-card class="bachelor-card">
+    <mat-card-header>
+      @if (bachelorData().student) {
+        <h3>
+          {{ bachelorData().student.last_name }}
+          {{ bachelorData().student.first_name }}
+          {{ bachelorData().student.second_name }},
+          {{ bachelorData().student.group }}
+        </h3>
+      } @else {
+        <p>Завантаження...</p>
+      }
+    </mat-card-header>
+    <mat-card-content>
+      <p>Тема: {{ topicName() }}</p>
+      <div class="topic-status">
+        <p>Статус теми:</p>
+        <p class="{{ getStatusData().class }}">{{ getStatusData().status }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div class="admin-buttons">
+    <button
+      mat-flat-button
+      [disabled]="disableConfirmTopic()"
+      (click)="onConfirmTopicClick()"
+    >
+      Затвердити
+    </button>
+    <button mat-raised-button (click)="onEditBachelorClick()">
+      Редагувати
+    </button>
+  </div>
+</div>

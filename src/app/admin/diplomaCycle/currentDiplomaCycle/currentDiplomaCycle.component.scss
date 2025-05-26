@@ -1,0 +1,27 @@
+.bachelor-card {
+  margin: 20px 0px 20px 50px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px;
+
+  button {
+    margin: 10px;
+  }
+}
+
+.supervisor-info {
+  display: flex;
+}
+
+.bachelors-count {
+  margin: 4px;
+  font-size: larger;
+}
+
+mat-divider {
+  margin-left: 4px;
+}

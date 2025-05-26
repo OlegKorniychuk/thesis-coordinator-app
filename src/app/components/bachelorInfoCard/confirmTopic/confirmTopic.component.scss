@@ -1,9 +1,3 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
 .card {
   width: 30%;
   margin: auto auto;
@@ -17,4 +11,10 @@
 
 .divider {
   margin: 10px 0 10px 0;
+}
+
+.form-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

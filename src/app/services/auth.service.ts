@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   public logout(): Observable<object> {
-    return this.http.post(this.authEndpoint + '/login', {}).pipe(
+    return this.http.post(this.authEndpoint + '/logout', {}).pipe(
       tap(() => {
         this.userData.set(null);
         this.isAuthenticated.set(false);
