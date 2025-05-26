@@ -6,6 +6,9 @@ import { TeachersComponent } from 'src/app/admin/teachers/teachers.component';
 import { ArchiveComponent } from 'src/app/admin/archive/archive.component';
 import { AdminComponent } from 'src/app/admin/admin.component';
 import { canLogin } from './guards/canLogin.guard';
+import { BachelorComponent } from 'src/app/bachelor/bachelor.component';
+import { MySupervisorComponent } from 'src/app/bachelor/mySupervisor/mySupervisor.component';
+import { MyTopicComponent } from './bachelor/myTopic/myTopic.component';
 
 export const routes: Routes = [
   {
@@ -54,8 +57,31 @@ export const routes: Routes = [
   },
   {
     path: 'bachelor',
-    loadChildren: () => import('src/app/bachelor/bachelor.routes'),
     canActivate: [isAuthGuard],
+    loadComponent: () =>
+      import('src/app/bachelor/bachelor.component').then(
+        (c) => BachelorComponent,
+      ),
+    children: [
+      {
+        path: 'my-supervisor',
+        loadComponent: () =>
+          import('src/app/bachelor/mySupervisor/mySupervisor.component').then(
+            (c) => MySupervisorComponent,
+          ),
+      },
+      {
+        path: 'my-topic',
+        loadComponent: () =>
+          import('src/app/bachelor/myTopic/myTopic.component').then(
+            (c) => MyTopicComponent,
+          ),
+      },
+      {
+        path: '**',
+        redirectTo: 'my-topic',
+      },
+    ],
   },
   {
     path: '**',

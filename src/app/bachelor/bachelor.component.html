@@ -1,1 +1,38 @@
-<div>Wellcome, bachelor!</div>
+<div>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <div class="toolbar">
+        <div>Сторінка Студента</div>
+        <tc-logout class="logout"></tc-logout>
+      </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-link">
+            <a
+              mat-stroked-button
+              routerLink="/bachelor/my-topic"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Моя тема
+            </a>
+          </li>
+          <li class="nav-link">
+            <a
+              mat-stroked-button
+              routerLink="/bachelor/my-supervisor"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Мій керівник
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <router-outlet></router-outlet>
+</div>
