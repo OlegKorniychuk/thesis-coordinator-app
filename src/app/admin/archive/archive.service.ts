@@ -19,7 +19,9 @@ export class ArchiveService {
   public updateArchivedYears(): Observable<number[]> {
     return this.http.get<ApiResponse>(this.archiveEndpoint + '/years').pipe(
       tap((response) => {
-        this.years.set(response.data.years.sort());
+        this.years.set(
+          response.data.years.sort((a: number, b: number) => b - a),
+        );
       }),
       map((response) => response.data.years),
     );
