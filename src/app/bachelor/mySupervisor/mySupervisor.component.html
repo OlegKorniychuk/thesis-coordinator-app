@@ -3,8 +3,8 @@
     <div>Мій Керівник</div>
   } @else {
     @if (activeRequest()) {
-      <div>
-        {{ activeRequest()?.comment }}
+      <div class="placeholder-message">
+        Ваш запит на керівництво розглядається.
       </div>
     } @else {
       <tc-supervisors-list></tc-supervisors-list>
