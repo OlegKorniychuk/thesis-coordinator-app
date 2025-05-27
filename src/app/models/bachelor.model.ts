@@ -61,6 +61,7 @@ export type SupervisionRequest = {
   bachelor_id: string;
   supervisor_id: string;
   comment: string | null;
+  supervisors_comment: string | null;
   proposed_topic: string | null;
   status: SupervisionRequestStatus;
 };

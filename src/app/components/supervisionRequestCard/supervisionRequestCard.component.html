@@ -1,0 +1,20 @@
+<mat-card class="supervision-request-card">
+  <mat-card-content>
+    <div>Запит до: {{ getSueprvisorFullName() }}</div>
+    <div class="request-status">
+      <p>Статус:</p>
+      <p class="{{ getStatusData().class }}">
+        {{ getStatusData().status }}
+      </p>
+    </div>
+    <div>
+      Ваш коментар:
+      {{ supervisionRequest().comment }}
+    </div>
+    @if (isRejected()) {
+      <div>
+        Коментар керівника: {{ supervisionRequest().supervisors_comment }}
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

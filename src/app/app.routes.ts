@@ -9,6 +9,7 @@ import { canLogin } from './guards/canLogin.guard';
 import { BachelorComponent } from 'src/app/bachelor/bachelor.component';
 import { MySupervisorComponent } from 'src/app/bachelor/mySupervisor/mySupervisor.component';
 import { MyTopicComponent } from './bachelor/myTopic/myTopic.component';
+import { MyRequestsComponent } from 'src/app/bachelor/myRequests/myRequests.component';
 
 export const routes: Routes = [
   {
@@ -75,6 +76,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('src/app/bachelor/myTopic/myTopic.component').then(
             (c) => MyTopicComponent,
+          ),
+      },
+      {
+        path: 'my-requests',
+        loadComponent: () =>
+          import('src/app/bachelor/myRequests/myRequests.component').then(
+            (c) => MyRequestsComponent,
           ),
       },
       {
