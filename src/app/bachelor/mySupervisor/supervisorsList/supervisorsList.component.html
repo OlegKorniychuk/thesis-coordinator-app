@@ -1,0 +1,42 @@
+<div>
+  <h1>Доступні керівники</h1>
+  @if (supervisors().length > 0) {
+    <div>
+      @for (supervisor of supervisors(); track $index) {
+        <mat-card class="supervisor-card">
+          <mat-card-header>
+            <h3>
+              {{ supervisor.teacher.last_name }}
+              {{ supervisor.teacher.first_name }}
+              {{ supervisor.teacher.second_name }}
+            </h3>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="card-content">
+              <div>
+                Вільних місць:
+                {{ supervisor.max_load - supervisor._count.bachelors }}
+              </div>
+              @if (wasRejected(supervisor.supervisor_id)) {
+                <div class="rejected">Цей керівник вже відхиляв ваш запит!</div>
+              }
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="onSendRequestClick(supervisor.supervisor_id)"
+            >
+              Надіслати запит
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <div>
+      <p>Наразі немає доступних керівників.</p>
+    </div>
+  }
+</div>

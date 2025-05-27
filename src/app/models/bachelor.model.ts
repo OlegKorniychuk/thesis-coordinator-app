@@ -1,8 +1,16 @@
+import { Teacher } from './teacher.model';
+
 export enum TopicStatus {
   pending = 'pending',
   rejected = 'rejected',
   on_confirmation = 'on_confirmation',
   confirmed = 'confirmed',
+}
+
+export enum SupervisionRequestStatus {
+  pending = 'pending',
+  accepted = 'accepted',
+  rejected = 'rejected',
 }
 
 export type Topic = {
@@ -46,4 +54,29 @@ export type TopicConfirmData = {
   bachelorId: string;
   topicId: string;
   refinedTopic?: string;
+};
+
+export type SupervisionRequest = {
+  supervision_request_id: string;
+  bachelor_id: string;
+  supervisor_id: string;
+  comment: string | null;
+  proposed_topic: string | null;
+  status: SupervisionRequestStatus;
+};
+
+export type BachelorUserData = BachelorFullData & {
+  supervision_requests: SupervisionRequest[];
+  supervisor: {
+    supervisor_id: string;
+    teacher_id: string;
+    max_load: number;
+    teacher: Teacher;
+  };
+};
+
+export type SupervisionRequestCreateData = {
+  supervisor_id: string;
+  comment?: string;
+  proposed_topic?: string;
 };

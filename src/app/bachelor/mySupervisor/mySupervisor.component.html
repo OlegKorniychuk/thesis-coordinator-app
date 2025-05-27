@@ -1,0 +1,13 @@
+<div>
+  @if (bachelorData()?.supervisor_id) {
+    <div>Мій Керівник</div>
+  } @else {
+    @if (activeRequest()) {
+      <div>
+        {{ activeRequest()?.comment }}
+      </div>
+    } @else {
+      <tc-supervisors-list></tc-supervisors-list>
+    }
+  }
+</div>

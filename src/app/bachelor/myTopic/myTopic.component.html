@@ -1,0 +1,11 @@
+<div>
+  @if (bachelorData()?.supervisor) {
+    @if (bachelorData()?.topic) {
+      <div>Моя Тема</div>
+    } @else {
+      Запропонувати тему керівнику
+    }
+  } @else {
+    <div>Спочатку оберіть керівника</div>
+  }
+</div>
