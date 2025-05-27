@@ -1,24 +1,27 @@
-@use "@angular/material" as mat;
-
 .supervision-request-card {
   font-size: large;
 }
 
-.request-status {
-  display: flex;
+.row-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.row-header {
+  font-weight: 500;
+  margin-right: 8px;
 }
 
 .status-accepted {
   color: green;
-  margin-left: 3px;
 }
 
 .status-pending {
   color: var(--mat-sys-on-primary-container);
-  margin-left: 3px;
 }
 
 .status-rejected {
   color: var(--mat-sys-on-error-container);
-  margin-left: 3px;
 }
