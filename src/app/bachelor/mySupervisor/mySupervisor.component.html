@@ -1,6 +1,19 @@
 <div>
-  @if (bachelorData()?.supervisor_id) {
-    <div>Мій Керівник</div>
+  @if (bachelorData()?.supervisor) {
+    <div class="supervisor-card">
+      <mat-card>
+        <mat-card-header>
+          <h2>{{ getSupervisorFullName() }}</h2>
+        </mat-card-header>
+        <mat-card-content>
+          <div>
+            <p class="info">Контактні дані:</p>
+            <p>Телефон: +380 68 452 14 88</p>
+            <p>E-mail: supervisormail&#64;gmail.com</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   } @else {
     @if (activeRequest()) {
       <div class="placeholder-message">

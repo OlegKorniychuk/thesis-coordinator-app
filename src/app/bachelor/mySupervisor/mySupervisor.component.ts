@@ -7,11 +7,14 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { BachelorService } from 'src/app/services/bachelor.service';
 import { SupervisorsListComponent } from './supervisorsList/supervisorsList.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'tc-my-supervisor',
   templateUrl: './mySupervisor.component.html',
-  imports: [SupervisorsListComponent],
+  styleUrl: './mySupervisor.component.scss',
+  imports: [SupervisorsListComponent, MatCardModule, MatDividerModule],
 })
 export class MySupervisorComponent {
   public bachelorData: Signal<BachelorUserData | null>;
@@ -28,5 +31,9 @@ export class MySupervisorComponent {
     this.bachelorData = this.bachelorService.bachelorUser;
     const userId: string = this.authService.userData()!.user_id;
     this.bachelorService.getBachelorUser(userId).subscribe();
+  }
+
+  public getSupervisorFullName() {
+    return `${this.bachelorData()?.supervisor?.teacher?.last_name} ${this.bachelorData()?.supervisor?.teacher?.first_name} ${this.bachelorData()?.supervisor?.teacher?.second_name}`;
   }
 }
