@@ -81,3 +81,8 @@ export type SupervisionRequestCreateData = {
   comment?: string;
   proposed_topic?: string;
 };
+
+export type ProposeTopicData = {
+  name: string;
+  comment?: string;
+};

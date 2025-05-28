@@ -1,0 +1,35 @@
+.topic-info-card {
+  font-size: large;
+}
+
+.row-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.row-header {
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.status-pending {
+  color: var(--mat-sys-on-primary-container);
+}
+
+.status-on-confirmation {
+  color: var(--mat-sys-on-primary-container);
+}
+
+.status-confirmed {
+  color: green;
+}
+
+.status-rejected {
+  color: var(--mat-sys-on-error-container);
+}
+
+.status-comment {
+  color: var(--mat-sys-on-secondary-container);
+}

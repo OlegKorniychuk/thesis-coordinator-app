@@ -1,0 +1,22 @@
+<mat-card class="topic-info-card">
+  <mat-card-header>
+    <h3>Інформацію про тему</h3>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row-container">
+      <p class="row-header">Запропонована тема:</p>
+      <p>{{ topic().name }}</p>
+    </div>
+    <div class="row-container">
+      <p class="row-header">{{ getCommentLabel() }}</p>
+      <p>{{ topic().comment }}</p>
+    </div>
+    <div class="row-container">
+      <p class="row-header">Статус:</p>
+      <p class="{{ getStatusData().class }}">{{ getStatusData().status }}</p>
+    </div>
+    <div class="status-comment">
+      <p>{{ getStatusData().comment }}</p>
+    </div>
+  </mat-card-content>
+</mat-card>

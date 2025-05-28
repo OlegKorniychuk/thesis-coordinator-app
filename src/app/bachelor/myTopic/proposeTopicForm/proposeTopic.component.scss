@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.divider {
+  margin: 10px 0 10px 0;
+}
+
+.form-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.submit-button {
+  width: 400px;
+}
+
+.card-header {
+  justify-content: center;
+}

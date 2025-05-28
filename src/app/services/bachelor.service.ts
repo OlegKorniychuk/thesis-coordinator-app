@@ -7,8 +7,10 @@ import {
   BachelorFullData,
   BachelorUpdateData,
   BachelorUserData,
+  ProposeTopicData,
   SupervisionRequest,
   SupervisionRequestCreateData,
+  Topic,
   TopicConfirmData,
 } from '../models/bachelor.model';
 
@@ -100,5 +102,17 @@ export class BachelorService {
         payload,
       )
       .pipe(map((response) => response.data.newSupervisionRequest));
+  }
+
+  public proposeTopic(
+    bachelorId: string,
+    payload: ProposeTopicData,
+  ): Observable<Topic> {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/topics`,
+        payload,
+      )
+      .pipe(map((response) => response.data.newTopic));
   }
 }
