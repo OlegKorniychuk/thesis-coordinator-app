@@ -1,0 +1,22 @@
+<mat-card class="supervision-request-card">
+  <mat-card-content>
+    <div class="row-container">
+      <p class="row-header">Запит до:</p>
+      <p>{{ getSueprvisorFullName() }}</p>
+    </div>
+    <div class="row-container">
+      <p class="row-header">Статус:</p>
+      <p class="{{ getStatusData().class }}">{{ getStatusData().status }}</p>
+    </div>
+    <div class="row-container">
+      <p class="row-header">Коментар студента:</p>
+      <p>{{ supervisionRequest().comment }}</p>
+    </div>
+    @if (isRejected()) {
+      <div class="row-container">
+        <p class="row-header">Коментар керівника:</p>
+        <p>{{ supervisionRequest().supervisors_comment }}</p>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

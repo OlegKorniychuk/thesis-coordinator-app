@@ -1,0 +1,37 @@
+@use "@angular/material" as mat;
+
+ul {
+  list-style: none;
+}
+
+mat-toolbar-row {
+  justify-content: center;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.active {
+  @include mat.button-overrides(
+    (
+      outlined-outline-color: var(--mat-sys-tertiary),
+    )
+  );
+}
+
+.nav-link {
+  margin: 5px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.logout {
+  position: absolute;
+  right: 10px;
+}

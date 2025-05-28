@@ -1,0 +1,20 @@
+<div>
+  @if (bachelorData()?.supervisor) {
+    <div class="topic-info">
+      @if (showForm()) {
+        <div class="topic-info-block">
+          <tc-propose-topic-form></tc-propose-topic-form>
+        </div>
+      }
+      @if (showCard()) {
+        <div class="topic-info-block">
+          <tc-topic-info-card
+            [topic]="bachelorData()!.topic!"
+          ></tc-topic-info-card>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="placeholder-message">Спочатку оберіть керівника</div>
+  }
+</div>

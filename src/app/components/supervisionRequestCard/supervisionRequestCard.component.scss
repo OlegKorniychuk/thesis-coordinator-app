@@ -1,0 +1,27 @@
+.supervision-request-card {
+  font-size: large;
+}
+
+.row-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.row-header {
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.status-accepted {
+  color: green;
+}
+
+.status-pending {
+  color: var(--mat-sys-on-primary-container);
+}
+
+.status-rejected {
+  color: var(--mat-sys-on-error-container);
+}

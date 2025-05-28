@@ -6,6 +6,11 @@ import { ApiResponse } from 'src/app/models/apiResponse.model';
 import {
   BachelorFullData,
   BachelorUpdateData,
+  BachelorUserData,
+  ProposeTopicData,
+  SupervisionRequest,
+  SupervisionRequestCreateData,
+  Topic,
   TopicConfirmData,
 } from '../models/bachelor.model';
 
@@ -14,6 +19,7 @@ import {
 })
 export class BachelorService {
   public bachelors = signal<BachelorFullData[]>([]);
+  public bachelorUser = signal<BachelorUserData | null>(null);
 
   private bachelorsEndpoint: string = settings.apiUrl + '/bachelors';
 
@@ -73,5 +79,40 @@ export class BachelorService {
         body,
       )
       .pipe(tap(() => this.getBachelors().subscribe()));
+  }
+
+  public getBachelorUser(userId: string): Observable<BachelorUserData> {
+    return this.http
+      .get<ApiResponse>(this.bachelorsEndpoint + `/by-user-id/${userId}`)
+      .pipe(
+        tap((response) => {
+          this.bachelorUser.set(response.data.bachelor);
+        }),
+        map((response) => response.data.bachelor),
+      );
+  }
+
+  public sendSupervisionRequest(
+    bachelorId: string,
+    payload: SupervisionRequestCreateData,
+  ): Observable<SupervisionRequest> {
+    return this.http
+      .post<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/supervision-requests`,
+        payload,
+      )
+      .pipe(map((response) => response.data.newSupervisionRequest));
+  }
+
+  public proposeTopic(
+    bachelorId: string,
+    payload: ProposeTopicData,
+  ): Observable<Topic> {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/topics`,
+        payload,
+      )
+      .pipe(map((response) => response.data.newTopic));
   }
 }

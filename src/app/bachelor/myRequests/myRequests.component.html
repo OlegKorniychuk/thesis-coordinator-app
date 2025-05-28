@@ -1,0 +1,30 @@
+<div>
+  @if (supervisionRequests().length > 0) {
+    @if (activeRequest()) {
+      <div>
+        <h2>Активний запит</h2>
+        <tc-supervision-request-card
+          [supervisionRequest]="activeRequest()!"
+          class="request-card"
+        >
+        </tc-supervision-request-card>
+      </div>
+    }
+    @if (rejectedRequests().length > 0) {
+      <div>
+        <h2>Відхилені запити</h2>
+        @for (request of rejectedRequests(); track $index) {
+          <tc-supervision-request-card
+            [supervisionRequest]="request"
+            class="request-card"
+          >
+          </tc-supervision-request-card>
+        }
+      </div>
+    }
+  } @else {
+    <div class="placeholder-message">
+      У вас поки немає запитів до керівників.
+    </div>
+  }
+</div>

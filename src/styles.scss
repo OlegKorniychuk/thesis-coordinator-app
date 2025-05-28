@@ -64,3 +64,10 @@ app-root {
     )
   );
 }
+
+.placeholder-message {
+  font-size: x-large;
+  text-align: center;
+  margin: 20px;
+  color: var(--mat-sys-on-primary-container);
+}

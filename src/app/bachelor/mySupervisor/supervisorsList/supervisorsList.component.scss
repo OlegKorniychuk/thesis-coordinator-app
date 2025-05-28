@@ -1,0 +1,15 @@
+@use "@angular/material" as mat;
+
+.supervisor-card {
+  margin: 20px 0px 20px 0px;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rejected {
+  color: var(--mat-sys-on-error-container);
+  font-size: large;
+}

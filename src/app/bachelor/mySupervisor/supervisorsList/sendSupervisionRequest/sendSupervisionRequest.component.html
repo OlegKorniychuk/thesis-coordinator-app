@@ -1,0 +1,33 @@
+<mat-card class="dialog-container">
+  <mat-card-header> Надіслати запит на керівництво </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="requestForm" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field>
+        <mat-label for="comment">Коментар</mat-label>
+        <textarea
+          matInput
+          type="text"
+          id="comment"
+          formControlName="comment"
+          placeholder="{{ commentPlaceholder }}"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="proposedTopic">Запропонувати тему</mat-label>
+        <textarea
+          matInput
+          type="text"
+          id="proposedTopic"
+          formControlName="proposedTopic"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-divider class="divider" />
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="form-controls">
+    <button mat-flat-button (click)="onSubmit()">Надіслати</button>
+    <button mat-flat-button (click)="onCancelClick()">Скасувати</button>
+  </mat-card-actions>
+</mat-card>
