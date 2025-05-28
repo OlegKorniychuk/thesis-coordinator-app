@@ -6,6 +6,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { LogoutComponent } from '../components/logout/logout.component';
 import { SupervisorService } from '../services/supervisor.service';
 import { AuthService } from '../services/auth.service';
+import { SupervisorWithLoad } from '../models/supervisor.model';
 
 @Component({
   selector: 'tc-supervisor',
@@ -22,17 +23,13 @@ import { AuthService } from '../services/auth.service';
   ],
 })
 export class SupervisorComponent implements OnInit {
-  public lastName: Signal<string>;
+  public supervisor: Signal<SupervisorWithLoad | null>;
 
   constructor(
     private supervisorService: SupervisorService,
     private authService: AuthService,
   ) {
-    this.lastName = computed(
-      () =>
-        this.supervisorService.supervisorUser()?.teacher.last_name ||
-        'Невідомий керівник',
-    );
+    this.supervisor = this.supervisorService.supervisorUser;
   }
 
   ngOnInit(): void {

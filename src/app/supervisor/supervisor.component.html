@@ -2,7 +2,7 @@
   <mat-toolbar>
     <mat-toolbar-row>
       <div class="toolbar">
-        <div>Сторінка Керівника {{ lastName() }}</div>
+        <div>Сторінка Керівника</div>
         <tc-logout class="logout"></tc-logout>
       </div>
     </mat-toolbar-row>
@@ -16,7 +16,9 @@
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
             >
-              Мої бакалаври
+              Мої бакалаври {{ supervisor()?._count?.bachelors }}/{{
+                supervisor()?.max_load
+              }}
             </a>
           </li>
           <li class="nav-link">
