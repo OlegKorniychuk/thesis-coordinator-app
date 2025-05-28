@@ -20,6 +20,7 @@ import {
 export class BachelorService {
   public bachelors = signal<BachelorFullData[]>([]);
   public bachelorUser = signal<BachelorUserData | null>(null);
+  public supervisorsBachelors = signal<BachelorFullData[]>([]);
 
   private bachelorsEndpoint: string = settings.apiUrl + '/bachelors';
 
@@ -114,5 +115,18 @@ export class BachelorService {
         payload,
       )
       .pipe(map((response) => response.data.newTopic));
+  }
+
+  public getSupervisorsBachelors(supervisorId: string) {
+    return this.http
+      .get<ApiResponse>(
+        this.bachelorsEndpoint + `/by-supervisor-id/${supervisorId}`,
+      )
+      .pipe(
+        tap((response) =>
+          this.supervisorsBachelors.set(response.data.bachelors),
+        ),
+        map((response) => response.data.bachelors),
+      );
   }
 }

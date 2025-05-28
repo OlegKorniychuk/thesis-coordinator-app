@@ -10,6 +10,7 @@ import { SupervisorWithLoad } from '../models/supervisor.model';
 })
 export class SupervisorService {
   public supervisors = signal<SupervisorWithLoad[]>([]);
+  public supervisorUser = signal<SupervisorWithLoad | null>(null);
 
   private supervisorsEndpoint: string = settings.apiUrl + '/supervisors';
 
@@ -35,6 +36,17 @@ export class SupervisorService {
           this.getSupervisors().subscribe();
         }),
         map((response) => response.data.newSupervisor),
+      );
+  }
+
+  public getSupervisorUser(userId: string) {
+    return this.http
+      .get<ApiResponse>(this.supervisorsEndpoint + `/by-user-id/${userId}`)
+      .pipe(
+        tap((response) => {
+          this.supervisorUser.set(response.data.supervisor);
+        }),
+        map((response) => response.data.supervisor),
       );
   }
 }

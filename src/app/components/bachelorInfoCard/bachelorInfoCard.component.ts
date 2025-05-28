@@ -1,4 +1,4 @@
-import { Component, computed, input, InputSignal, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,12 +30,14 @@ export class BachelorInfoCardComponent {
       class: 'status-in-progress',
     },
     [TopicStatus.rejected]: {
-      status: 'Узгоджується з керівником',
+      status: 'Відхилено керівником',
       class: 'status-in-progress',
     },
   };
 
   public bachelorData = input.required<BachelorFullData>();
+  public user = input.required<'supervisor' | 'admin'>();
+  public addControlls = input<boolean>(false);
   public topicName = computed<string>(() =>
     this.bachelorData().topic
       ? this.bachelorData().topic!.name
@@ -73,4 +75,13 @@ export class BachelorInfoCardComponent {
       },
     });
   }
+
+  public getCommentLabel(): string {
+    return this.bachelorData().topic?.status === TopicStatus.rejected
+      ? 'Коментар керівника:'
+      : 'Коментар студента:';
+  }
+
+  public onAcceptTopicClick() {}
+  public onRejectTopicClick() {}
 }

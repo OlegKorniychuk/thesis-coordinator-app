@@ -1,1 +1,33 @@
-<div>Мої бакалаври</div>
+<div>
+  @if (bachelors().length > 0) {
+    @if (pendingBachelors().length > 0) {
+      <h2>Потребують розгляду</h2>
+      <div>
+        @for (bachelor of pendingBachelors(); track $index) {
+          <div class="bachelor-card">
+            <tc-bachelor-info-card
+              [bachelorData]="bachelor"
+              user="supervisor"
+              [addControlls]="true"
+            ></tc-bachelor-info-card>
+          </div>
+        }
+      </div>
+    }
+    @if (notPendingBachelors().length > 0) {
+      <h2>Не потребують розгляду</h2>
+      <div>
+        @for (bachelor of notPendingBachelors(); track $index) {
+          <div class="bachelor-card">
+            <tc-bachelor-info-card
+              [bachelorData]="bachelor"
+              user="supervisor"
+            ></tc-bachelor-info-card>
+          </div>
+        }
+      </div>
+    }
+  } @else {
+    <div class="placeholder-message">У вас поки немає дипломників</div>
+  }
+</div>
