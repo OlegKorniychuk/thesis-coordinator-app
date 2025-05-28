@@ -10,6 +10,9 @@ import { BachelorComponent } from 'src/app/bachelor/bachelor.component';
 import { MySupervisorComponent } from 'src/app/bachelor/mySupervisor/mySupervisor.component';
 import { MyTopicComponent } from './bachelor/myTopic/myTopic.component';
 import { MyRequestsComponent } from 'src/app/bachelor/myRequests/myRequests.component';
+import { SupervisorComponent } from 'src/app/supervisor/supervisor.component';
+import { SupervisorsBachelorsComponent } from 'src/app/supervisor/supervisorsBachelors/supervisorsBachelors.component';
+import { SupervisorsRequestsComponent } from './supervisor/supervisorsRequests/supervisorsRequests.component';
 
 export const routes: Routes = [
   {
@@ -53,8 +56,31 @@ export const routes: Routes = [
   },
   {
     path: 'supervisor',
-    loadChildren: () => import('src/app/supervisor/supervisor.routes'),
     canActivate: [isAuthGuard],
+    loadComponent: () =>
+      import('src/app/supervisor/supervisor.component').then(
+        (c) => SupervisorComponent,
+      ),
+    children: [
+      {
+        path: 'my-bachelors',
+        loadComponent: () =>
+          import(
+            'src/app/supervisor/supervisorsBachelors/supervisorsBachelors.component'
+          ).then((c) => SupervisorsBachelorsComponent),
+      },
+      {
+        path: 'my-requests',
+        loadComponent: () =>
+          import(
+            'src/app/supervisor/supervisorsRequests/supervisorsRequests.component'
+          ).then((c) => SupervisorsRequestsComponent),
+      },
+      {
+        path: '**',
+        redirectTo: 'my-bachelors',
+      },
+    ],
   },
   {
     path: 'bachelor',
