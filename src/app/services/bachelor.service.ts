@@ -147,4 +147,31 @@ export class BachelorService {
       )
       .pipe(map((response) => response.data.updatedTopic));
   }
+
+  public acceptSupervisionRequest(
+    bachelorId: string,
+    supervisionRequestId: string,
+  ) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint +
+          `/${bachelorId}/supervision-requests/${supervisionRequestId}/accept`,
+        {},
+      )
+      .pipe(map((response) => response.data.updatedSupervisionRequest));
+  }
+
+  public rejectSupervisionRequest(
+    bachelorId: string,
+    supervisionRequestId: string,
+    comment: string,
+  ) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint +
+          `/${bachelorId}/supervision-requests/${supervisionRequestId}/reject`,
+        { comment },
+      )
+      .pipe(map((response) => response.data.updatedSupervisionRequest));
+  }
 }
