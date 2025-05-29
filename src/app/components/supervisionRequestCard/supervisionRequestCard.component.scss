@@ -1,5 +1,6 @@
 .supervision-request-card {
   font-size: large;
+  width: 100%;
 }
 
 .row-container {
@@ -24,4 +25,27 @@
 
 .status-rejected {
   color: var(--mat-sys-on-error-container);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 5px;
+}
+
+.card-container {
+  display: flex;
+  height: fit-content;
+  flex-direction: row;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-content-rejected {
+  color: var(--mat-sys-on-error-container);
+  font-size: large;
 }

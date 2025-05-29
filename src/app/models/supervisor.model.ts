@@ -1,4 +1,4 @@
-import { BachelorFullData } from './bachelor.model';
+import { BachelorFullData, SupervisionRequest } from './bachelor.model';
 import { Teacher } from './teacher.model';
 
 export type SupervisorWithLoad = {
@@ -12,4 +12,8 @@ export type SupervisorWithLoad = {
 
 export type SupervisorWithBachelors = SupervisorWithLoad & {
   bachelors: BachelorFullData[];
+};
+
+export type SupervisorsSupervisionRequest = SupervisionRequest & {
+  bachelor: Omit<BachelorFullData, 'topic'>;
 };

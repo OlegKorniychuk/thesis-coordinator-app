@@ -1,0 +1,44 @@
+<div>
+  @if (supervisionRequests().length > 0) {
+    <div>
+      <h2>Активні запити</h2>
+      @if (activeRequests().length > 0) {
+        @for (request of activeRequests(); track $index) {
+          <div class="card-container">
+            <tc-supervision-request-card
+              [supervisionRequest]="request"
+              [fromStudent]="request.bachelor.student"
+              [addSupervisorControls]="true"
+              [wasRejected]="wasRejected(request.bachelor_id)"
+            >
+            </tc-supervision-request-card>
+          </div>
+        }
+      } @else {
+        <div class="placeholder-message">У вас немає активних запитів</div>
+      }
+    </div>
+    <div>
+      <h2>Оброблені запити</h2>
+      @if (notActiveRequests().length > 0) {
+        @for (request of notActiveRequests(); track $index) {
+          <div class="card-container">
+            <tc-supervision-request-card
+              [supervisionRequest]="request"
+              [fromStudent]="request.bachelor.student"
+            >
+            </tc-supervision-request-card>
+          </div>
+        }
+      } @else {
+        <div class="placeholder-message">
+          У вас поки немає оброблених запитів
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="placeholder-message">
+      У вас поки немає запитів на керівництво
+    </div>
+  }
+</div>

@@ -1,10 +1,13 @@
-import { Component, computed, input, InputSignal, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { BachelorFullData, TopicStatus } from 'src/app/models/bachelor.model';
 import { EditBachelorComponent } from './editBachelor/editBachelor.component';
 import { ConfirmTopicComponent } from './confirmTopic/confirmTopic.component';
+import { BachelorService } from 'src/app/services/bachelor.service';
+import { SupervisorService } from 'src/app/services/supervisor.service';
+import { RejectTopicComponent } from './rejectTopic/rejectTopic.component';
 
 @Component({
   selector: 'tc-bachelor-info-card',
@@ -22,7 +25,7 @@ export class BachelorInfoCardComponent {
       class: 'status-confirmed',
     },
     [TopicStatus.on_confirmation]: {
-      status: 'Потребує завтердження',
+      status: 'Очікує на затвердження',
       class: 'status-on-confirmation',
     },
     [TopicStatus.pending]: {
@@ -30,19 +33,25 @@ export class BachelorInfoCardComponent {
       class: 'status-in-progress',
     },
     [TopicStatus.rejected]: {
-      status: 'Узгоджується з керівником',
+      status: 'Відхилено керівником',
       class: 'status-in-progress',
     },
   };
 
   public bachelorData = input.required<BachelorFullData>();
+  public user = input.required<'supervisor' | 'admin'>();
+  public addControlls = input<boolean>(false);
   public topicName = computed<string>(() =>
     this.bachelorData().topic
       ? this.bachelorData().topic!.name
       : 'Тему не визначено',
   );
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private bachelorService: BachelorService,
+    private supervisorService: SupervisorService,
+  ) {}
 
   public getStatusData(): {
     status: string;
@@ -71,6 +80,32 @@ export class BachelorInfoCardComponent {
       data: {
         bachelorData: this.bachelorData(),
       },
+    });
+  }
+
+  public getCommentLabel(): string {
+    return this.bachelorData().topic?.status === TopicStatus.rejected
+      ? 'Коментар керівника:'
+      : 'Коментар студента:';
+  }
+
+  public onAcceptTopicClick() {
+    this.bachelorService
+      .acceptTopic(
+        this.bachelorData().bachelor_id,
+        this.bachelorData().topic!.topic_id,
+      )
+      .subscribe(() => {
+        this.bachelorService
+          .getSupervisorsBachelors(
+            this.supervisorService.supervisorUser()!.supervisor_id,
+          )
+          .subscribe();
+      });
+  }
+  public onRejectTopicClick() {
+    this.dialog.open(RejectTopicComponent, {
+      data: { bachelorData: this.bachelorData() },
     });
   }
 }

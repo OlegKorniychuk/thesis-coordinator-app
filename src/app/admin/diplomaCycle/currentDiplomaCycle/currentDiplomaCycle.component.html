@@ -23,7 +23,11 @@
     <div>
       @for (bachelor of bachelorsWithoutSupervisor(); track $index) {
         <div class="bachelor-card">
-          <tc-bachelor-info-card [bachelorData]="bachelor">
+          <tc-bachelor-info-card
+            [bachelorData]="bachelor"
+            user="admin"
+            [addControlls]="true"
+          >
           </tc-bachelor-info-card>
         </div>
       }
@@ -42,7 +46,11 @@
         <div>
           @for (bachelor of supervisor.bachelors; track $index) {
             <div class="bachelor-card">
-              <tc-bachelor-info-card [bachelorData]="bachelor">
+              <tc-bachelor-info-card
+                [bachelorData]="bachelor"
+                user="admin"
+                [addControlls]="true"
+              >
               </tc-bachelor-info-card>
             </div>
           }

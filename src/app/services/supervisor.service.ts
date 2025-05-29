@@ -3,13 +3,18 @@ import { Injectable, signal } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { settings } from 'settings/dev.settings';
 import { ApiResponse } from 'src/app/models/apiResponse.model';
-import { SupervisorWithLoad } from '../models/supervisor.model';
+import {
+  SupervisorsSupervisionRequest,
+  SupervisorWithLoad,
+} from '../models/supervisor.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupervisorService {
   public supervisors = signal<SupervisorWithLoad[]>([]);
+  public supervisorUser = signal<SupervisorWithLoad | null>(null);
+  public supervisorUserRequests = signal<SupervisorsSupervisionRequest[]>([]);
 
   private supervisorsEndpoint: string = settings.apiUrl + '/supervisors';
 
@@ -35,6 +40,32 @@ export class SupervisorService {
           this.getSupervisors().subscribe();
         }),
         map((response) => response.data.newSupervisor),
+      );
+  }
+
+  public getSupervisorUser(userId: string) {
+    return this.http
+      .get<ApiResponse>(this.supervisorsEndpoint + `/by-user-id/${userId}`)
+      .pipe(
+        tap((response) => {
+          this.supervisorUser.set(response.data.supervisor);
+        }),
+        map((response) => response.data.supervisor),
+      );
+  }
+
+  public getSupervisorUserRequests(
+    supervisorId: string,
+  ): Observable<SupervisorsSupervisionRequest[]> {
+    return this.http
+      .get<ApiResponse>(
+        this.supervisorsEndpoint + `/${supervisorId}/supervision-requests`,
+      )
+      .pipe(
+        tap((response) =>
+          this.supervisorUserRequests.set(response.data.supervisionRequests),
+        ),
+        map((response) => response.data.supervisionRequests),
       );
   }
 }

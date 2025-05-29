@@ -1,1 +1,40 @@
-<div>Wellcome, supervisor!</div>
+<div>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <div class="toolbar">
+        <div>Сторінка Керівника</div>
+        <tc-logout class="logout"></tc-logout>
+      </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-link">
+            <a
+              mat-stroked-button
+              routerLink="/supervisor/my-bachelors"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Мої бакалаври {{ supervisor()?._count?.bachelors }}/{{
+                supervisor()?.max_load
+              }}
+            </a>
+          </li>
+          <li class="nav-link">
+            <a
+              mat-stroked-button
+              routerLink="/supervisor/my-requests"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Мої запити {{ activeRequestsCount() }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <router-outlet></router-outlet>
+</div>

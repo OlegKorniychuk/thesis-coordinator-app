@@ -20,6 +20,7 @@ import {
 export class BachelorService {
   public bachelors = signal<BachelorFullData[]>([]);
   public bachelorUser = signal<BachelorUserData | null>(null);
+  public supervisorsBachelors = signal<BachelorFullData[]>([]);
 
   private bachelorsEndpoint: string = settings.apiUrl + '/bachelors';
 
@@ -114,5 +115,63 @@ export class BachelorService {
         payload,
       )
       .pipe(map((response) => response.data.newTopic));
+  }
+
+  public getSupervisorsBachelors(supervisorId: string) {
+    return this.http
+      .get<ApiResponse>(
+        this.bachelorsEndpoint + `/by-supervisor-id/${supervisorId}`,
+      )
+      .pipe(
+        tap((response) =>
+          this.supervisorsBachelors.set(response.data.bachelors),
+        ),
+        map((response) => response.data.bachelors),
+      );
+  }
+
+  public acceptTopic(bachelorId: string, topicId: string) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/topics/${topicId}/accept`,
+        {},
+      )
+      .pipe(map((response) => response.data.updatedTopic));
+  }
+
+  public rejectTopic(bachelorId: string, topicId: string, comment: string) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/topics/${topicId}/reject`,
+        { comment },
+      )
+      .pipe(map((response) => response.data.updatedTopic));
+  }
+
+  public acceptSupervisionRequest(
+    bachelorId: string,
+    supervisionRequestId: string,
+  ) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint +
+          `/${bachelorId}/supervision-requests/${supervisionRequestId}/accept`,
+        {},
+      )
+      .pipe(map((response) => response.data.updatedSupervisionRequest));
+  }
+
+  public rejectSupervisionRequest(
+    bachelorId: string,
+    supervisionRequestId: string,
+    comment: string,
+  ) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint +
+          `/${bachelorId}/supervision-requests/${supervisionRequestId}/reject`,
+        { comment },
+      )
+      .pipe(map((response) => response.data.updatedSupervisionRequest));
   }
 }

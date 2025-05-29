@@ -1,22 +1,51 @@
-<mat-card class="supervision-request-card">
-  <mat-card-content>
-    <div class="row-container">
-      <p class="row-header">Запит до:</p>
-      <p>{{ getSueprvisorFullName() }}</p>
-    </div>
-    <div class="row-container">
-      <p class="row-header">Статус:</p>
-      <p class="{{ getStatusData().class }}">{{ getStatusData().status }}</p>
-    </div>
-    <div class="row-container">
-      <p class="row-header">Коментар студента:</p>
-      <p>{{ supervisionRequest().comment }}</p>
-    </div>
-    @if (isRejected()) {
-      <div class="row-container">
-        <p class="row-header">Коментар керівника:</p>
-        <p>{{ supervisionRequest().supervisors_comment }}</p>
+<div class="card-container">
+  <mat-card class="supervision-request-card">
+    <mat-card-content>
+      <div class="card-content">
+        <div class="card-content-primary">
+          <div class="row-container">
+            @if (fromStudent()) {
+              <p class="row-header">Запит від:</p>
+              <p>
+                {{ fromStudent()!.last_name }} {{ fromStudent()!.first_name }}
+                {{ fromStudent()!.second_name }}, {{ fromStudent()!.group }}
+              </p>
+            } @else {
+              <p class="row-header">Запит до:</p>
+              <p>{{ getSueprvisorFullName() }}</p>
+            }
+          </div>
+          <div class="row-container">
+            <p class="row-header">Статус:</p>
+            <p class="{{ getStatusData().class }}">
+              {{ getStatusData().status }}
+            </p>
+          </div>
+          <div class="row-container">
+            <p class="row-header">Коментар студента:</p>
+            <p>{{ supervisionRequest().comment }}</p>
+          </div>
+          @if (isRejected()) {
+            <div class="row-container">
+              <p class="row-header">Коментар керівника:</p>
+              <p>{{ supervisionRequest().supervisors_comment }}</p>
+            </div>
+          }
+        </div>
+        @if (fromStudent() && wasRejected()) {
+          <div class="card-content-rejected">
+            Ви вже відхиляли запит цього студента!
+          </div>
+        }
       </div>
-    }
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+  @if (fromStudent() && addSupervisorControls()) {
+    <div class="buttons">
+      <button mat-flat-button (click)="onAcceptRequestClick()">Погодити</button>
+      <button mat-raised-button (click)="onRejectRequestClick()">
+        Відхилити
+      </button>
+    </div>
+  }
+</div>
