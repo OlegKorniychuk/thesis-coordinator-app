@@ -5,6 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { BachelorFullData, TopicStatus } from 'src/app/models/bachelor.model';
 import { EditBachelorComponent } from './editBachelor/editBachelor.component';
 import { ConfirmTopicComponent } from './confirmTopic/confirmTopic.component';
+import { BachelorService } from 'src/app/services/bachelor.service';
+import { SupervisorService } from 'src/app/services/supervisor.service';
+import { RejectTopicComponent } from './rejectTopic/rejectTopic.component';
 
 @Component({
   selector: 'tc-bachelor-info-card',
@@ -22,7 +25,7 @@ export class BachelorInfoCardComponent {
       class: 'status-confirmed',
     },
     [TopicStatus.on_confirmation]: {
-      status: 'Потребує завтердження',
+      status: 'Очікує на затвердження',
       class: 'status-on-confirmation',
     },
     [TopicStatus.pending]: {
@@ -44,7 +47,11 @@ export class BachelorInfoCardComponent {
       : 'Тему не визначено',
   );
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private bachelorService: BachelorService,
+    private supervisorService: SupervisorService,
+  ) {}
 
   public getStatusData(): {
     status: string;
@@ -82,6 +89,23 @@ export class BachelorInfoCardComponent {
       : 'Коментар студента:';
   }
 
-  public onAcceptTopicClick() {}
-  public onRejectTopicClick() {}
+  public onAcceptTopicClick() {
+    this.bachelorService
+      .acceptTopic(
+        this.bachelorData().bachelor_id,
+        this.bachelorData().topic!.topic_id,
+      )
+      .subscribe(() => {
+        this.bachelorService
+          .getSupervisorsBachelors(
+            this.supervisorService.supervisorUser()!.supervisor_id,
+          )
+          .subscribe();
+      });
+  }
+  public onRejectTopicClick() {
+    this.dialog.open(RejectTopicComponent, {
+      data: { bachelorData: this.bachelorData() },
+    });
+  }
 }

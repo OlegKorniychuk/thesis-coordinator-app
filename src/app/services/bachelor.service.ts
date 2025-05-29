@@ -129,4 +129,22 @@ export class BachelorService {
         map((response) => response.data.bachelors),
       );
   }
+
+  public acceptTopic(bachelorId: string, topicId: string) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/topics/${topicId}/accept`,
+        {},
+      )
+      .pipe(map((response) => response.data.updatedTopic));
+  }
+
+  public rejectTopic(bachelorId: string, topicId: string, comment: string) {
+    return this.http
+      .patch<ApiResponse>(
+        this.bachelorsEndpoint + `/${bachelorId}/topics/${topicId}/reject`,
+        { comment },
+      )
+      .pipe(map((response) => response.data.updatedTopic));
+  }
 }
