@@ -1,11 +1,23 @@
 <div>
   <div class="controls">
+    <button mat-stroked-button (click)="downloadBachelorsCredentials()">
+      <p>Паролі студентів</p>
+      <mat-icon>download</mat-icon>
+    </button>
+
+    <button mat-stroked-button (click)="downloadSupervisorsCredentials()">
+      <p>Паролі керівників</p>
+      <mat-icon>download</mat-icon>
+    </button>
+
     <button mat-flat-button (click)="openAddBachelorDialog()">
       Додати студента
     </button>
+
     <button mat-flat-button (click)="openAddSupervisorDialog()">
       Додати керівника
     </button>
+
     <button
       mat-flat-button
       (click)="openEndDiplomaCycleDialog()"

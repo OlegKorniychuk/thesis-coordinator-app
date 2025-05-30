@@ -28,13 +28,15 @@
   @if (addControlls()) {
     @if (user() === "admin") {
       <div class="admin-buttons">
-        <button
-          mat-flat-button
-          [disabled]="disableConfirmTopic()"
-          (click)="onConfirmTopicClick()"
-        >
-          Затвердити
-        </button>
+        <div [matTooltip]="getTooltipText()">
+          <button
+            mat-flat-button
+            [disabled]="disableConfirmTopic()"
+            (click)="onConfirmTopicClick()"
+          >
+            Затвердити
+          </button>
+        </div>
         <button mat-raised-button (click)="onEditBachelorClick()">
           Редагувати
         </button>

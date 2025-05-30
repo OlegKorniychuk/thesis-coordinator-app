@@ -79,4 +79,22 @@ export class CurrentDiplomaCycleComponent implements OnInit {
       data: { supervisorId, maxLoad },
     });
   }
+
+  downloadBachelorsCredentials() {
+    this.bachelorService.getCredentials().subscribe((blob) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'StudentsCredentials.xlsx';
+      link.click();
+    });
+  }
+
+  downloadSupervisorsCredentials() {
+    this.supervisorService.getCredentials().subscribe((blob) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'SupervisorsCredentials.xlsx';
+      link.click();
+    });
+  }
 }

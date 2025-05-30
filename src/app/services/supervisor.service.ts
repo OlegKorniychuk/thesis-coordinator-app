@@ -77,4 +77,10 @@ export class SupervisorService {
       )
       .pipe(map((response) => response.data.updatedSupervisor));
   }
+
+  public getCredentials() {
+    return this.http.get(this.supervisorsEndpoint + '/credentials', {
+      responseType: 'blob',
+    });
+  }
 }

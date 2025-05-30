@@ -8,12 +8,13 @@ import { ConfirmTopicComponent } from './confirmTopic/confirmTopic.component';
 import { BachelorService } from 'src/app/services/bachelor.service';
 import { SupervisorService } from 'src/app/services/supervisor.service';
 import { RejectTopicComponent } from './rejectTopic/rejectTopic.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'tc-bachelor-info-card',
   templateUrl: './bachelorInfoCard.component.html',
   styleUrl: './bachelorInfoCard.component.scss',
-  imports: [MatCardModule, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule, MatTooltipModule],
 })
 export class BachelorInfoCardComponent {
   private topicStatusUkrainian: Record<
@@ -103,9 +104,18 @@ export class BachelorInfoCardComponent {
           .subscribe();
       });
   }
+
   public onRejectTopicClick() {
     this.dialog.open(RejectTopicComponent, {
       data: { bachelorData: this.bachelorData() },
     });
+  }
+
+  public getTooltipText(): string | null {
+    if (this.bachelorData().topic?.status === TopicStatus.confirmed)
+      return 'Цю тему вже затверджено';
+    if (this.bachelorData().topic?.status !== TopicStatus.on_confirmation)
+      return 'Тему можна затвердити тільки після погодження керівником';
+    return null;
   }
 }

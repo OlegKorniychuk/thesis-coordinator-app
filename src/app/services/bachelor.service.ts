@@ -174,4 +174,10 @@ export class BachelorService {
       )
       .pipe(map((response) => response.data.updatedSupervisionRequest));
   }
+
+  public getCredentials() {
+    return this.http.get(this.bachelorsEndpoint + '/credentials', {
+      responseType: 'blob',
+    });
+  }
 }
