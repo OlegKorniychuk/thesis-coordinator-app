@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { EndDiplomaCycleComponent } from './endDiplomaCycle/endDiplomaCycle.component';
 import { MatIconModule } from '@angular/material/icon';
 import { EditSupervisorLoadComponent } from './editSupervisorLoad/editSupervisorLoad.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'tc-current-diploma-cycle',
@@ -22,6 +23,7 @@ import { EditSupervisorLoadComponent } from './editSupervisorLoad/editSupervisor
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
+    MatExpansionModule,
   ],
 })
 export class CurrentDiplomaCycleComponent implements OnInit {

@@ -27,57 +27,69 @@
     </button>
   </div>
   <div>
-    <div class="supervisor-info">
-      <h2>Студенти без керівника</h2>
-      <p class="bachelors-count">{{ bachelorsWithoutSupervisor().length }}</p>
+    <div class="expansion-container">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div class="supervisor-info">
+            <h2>Студенти без керівника</h2>
+            <p class="bachelors-count">
+              {{ bachelorsWithoutSupervisor().length }}
+            </p>
+          </div>
+        </mat-expansion-panel-header>
+        @for (bachelor of bachelorsWithoutSupervisor(); track $index) {
+          <div class="bachelor-card">
+            <tc-bachelor-info-card
+              [bachelorData]="bachelor"
+              user="admin"
+              [addControlls]="true"
+            >
+            </tc-bachelor-info-card>
+          </div>
+        }
+      </mat-expansion-panel>
     </div>
-    <div>
-      @for (bachelor of bachelorsWithoutSupervisor(); track $index) {
-        <div class="bachelor-card">
-          <tc-bachelor-info-card
-            [bachelorData]="bachelor"
-            user="admin"
-            [addControlls]="true"
-          >
-          </tc-bachelor-info-card>
-        </div>
-      }
-      @for (supervisor of supervisorsWithBachelors(); track $index) {
-        <div class="supervisor-info">
-          <h2>
-            {{ supervisor.teacher.last_name }}
-            {{ supervisor.teacher.first_name }}
-            {{ supervisor.teacher.second_name }}
-          </h2>
-          <p class="bachelors-count">
-            {{ supervisor._count.bachelors }}/{{ supervisor.max_load }}
-          </p>
-          <button
-            mat-icon-button
-            class="edit-icon"
-            (click)="
-              openEditMaxLoadDialog(
-                supervisor.supervisor_id,
-                supervisor.max_load
-              )
-            "
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-        </div>
-        <div>
-          @for (bachelor of supervisor.bachelors; track $index) {
-            <div class="bachelor-card">
-              <tc-bachelor-info-card
-                [bachelorData]="bachelor"
-                user="admin"
-                [addControlls]="true"
+    @for (supervisor of supervisorsWithBachelors(); track $index) {
+      <div class="expansion-container">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="supervisor-info">
+              <h2>
+                {{ supervisor.teacher.last_name }}
+                {{ supervisor.teacher.first_name }}
+                {{ supervisor.teacher.second_name }}
+              </h2>
+              <p class="bachelors-count">
+                {{ supervisor._count.bachelors }}/{{ supervisor.max_load }}
+              </p>
+              <button
+                mat-icon-button
+                class="edit-icon"
+                (click)="
+                  openEditMaxLoadDialog(
+                    supervisor.supervisor_id,
+                    supervisor.max_load
+                  )
+                "
               >
-              </tc-bachelor-info-card>
+                <mat-icon>edit</mat-icon>
+              </button>
             </div>
-          }
-        </div>
-      }
-    </div>
+          </mat-expansion-panel-header>
+          <div>
+            @for (bachelor of supervisor.bachelors; track $index) {
+              <div class="bachelor-card">
+                <tc-bachelor-info-card
+                  [bachelorData]="bachelor"
+                  user="admin"
+                  [addControlls]="true"
+                >
+                </tc-bachelor-info-card>
+              </div>
+            }
+          </div>
+        </mat-expansion-panel>
+      </div>
+    }
   </div>
 </div>
