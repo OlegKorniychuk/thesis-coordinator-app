@@ -31,7 +31,15 @@ mat-toolbar-row {
   justify-content: center;
 }
 
-.logout {
+.logout-block {
   position: absolute;
   right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.logout-fullname {
+  color: var(--mat-sys-on-secondary-container);
+  font-size: smaller;
+  margin-right: 10px;
 }

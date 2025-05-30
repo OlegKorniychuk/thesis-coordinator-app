@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, computed, OnInit, Signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -6,6 +6,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { LogoutComponent } from '../components/logout/logout.component';
 import { BachelorService } from '../services/bachelor.service';
 import { AuthService } from '../services/auth.service';
+import { Student } from '../models/bachelor.model';
 
 @Component({
   selector: 'tc-bachelor',
@@ -22,10 +23,19 @@ import { AuthService } from '../services/auth.service';
   ],
 })
 export class BachelorComponent implements OnInit {
+  public bachelorFullName: Signal<string>;
+
   constructor(
     private bachelorService: BachelorService,
     private authService: AuthService,
-  ) {}
+  ) {
+    this.bachelorFullName = computed(() => {
+      const student: Student | undefined =
+        this.bachelorService.bachelorUser()?.student;
+      if (!student) return 'Невідомий студент';
+      return `${student.last_name} ${student.first_name[0]}. ${student.second_name[0]}.`;
+    });
+  }
 
   ngOnInit(): void {
     const userId: string = this.authService.userData()!.user_id;

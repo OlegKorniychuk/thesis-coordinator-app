@@ -3,7 +3,10 @@
     <mat-toolbar-row>
       <div class="toolbar">
         <div>Сторінка Керівника</div>
-        <tc-logout class="logout"></tc-logout>
+        <div class="logout-block">
+          <p class="logout-fullname">{{ supervisorFullName() }}</p>
+          <tc-logout></tc-logout>
+        </div>
       </div>
     </mat-toolbar-row>
     <mat-toolbar-row>

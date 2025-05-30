@@ -8,6 +8,7 @@ import { SupervisorService } from '../services/supervisor.service';
 import { AuthService } from '../services/auth.service';
 import { SupervisorWithLoad } from '../models/supervisor.model';
 import { SupervisionRequestStatus } from '../models/bachelor.model';
+import { Teacher } from '../models/teacher.model';
 
 @Component({
   selector: 'tc-supervisor',
@@ -26,6 +27,7 @@ import { SupervisionRequestStatus } from '../models/bachelor.model';
 export class SupervisorComponent implements OnInit {
   public supervisor: Signal<SupervisorWithLoad | null>;
   public activeRequestsCount: Signal<number>;
+  public supervisorFullName: Signal<string>;
 
   constructor(
     private supervisorService: SupervisorService,
@@ -41,6 +43,13 @@ export class SupervisorComponent implements OnInit {
             : count;
         }, 0),
     );
+
+    this.supervisorFullName = computed(() => {
+      const teacher: Teacher | undefined =
+        this.supervisorService.supervisorUser()?.teacher;
+      if (!teacher) return 'Невідомий викладач';
+      return `${teacher.last_name} ${teacher.first_name[0]}. ${teacher.second_name[0]}.`;
+    });
   }
 
   ngOnInit(): void {
