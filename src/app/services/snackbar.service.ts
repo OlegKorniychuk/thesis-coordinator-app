@@ -9,7 +9,7 @@ export class SnackbarService {
 
   public showErrorSnackbar(message: string = 'Невідома помилка') {
     this.snackBar.open(message, undefined, {
-      duration: 3000,
+      duration: 5000,
       panelClass: ['error-snackbar'],
     });
   }

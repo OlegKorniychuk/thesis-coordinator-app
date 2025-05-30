@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 :host {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,8 @@
 
 .card {
   width: 30%;
-  margin: auto auto;
+  margin: 0 auto;
+  margin-top: 100px;
 }
 
 .form {
@@ -17,4 +20,8 @@
 
 .divider {
   margin: 10px 0 10px 0;
+}
+
+.login-card-header {
+  justify-content: center;
 }

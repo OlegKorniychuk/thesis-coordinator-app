@@ -27,6 +27,12 @@ export function httpConfigInterceptor(
       const isRefreshRequest = req.url.includes('/auth/refresh');
 
       switch (httpCode) {
+        case 400:
+          snackbarService.showErrorSnackbar(
+            err.error.message || 'Невідома помилка запиту',
+          );
+          return of();
+
         case 500:
           console.error(err.error);
           snackbarService.showErrorSnackbar('Невідома серверна помилка');
