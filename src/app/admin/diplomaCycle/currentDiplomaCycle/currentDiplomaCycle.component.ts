@@ -10,12 +10,19 @@ import { AddStudentComponent } from './addStudent/addStudent.component';
 import { AddSupervisorComponent } from './addSupervisor/addSupervisor.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { EndDiplomaCycleComponent } from './endDiplomaCycle/endDiplomaCycle.component';
+import { MatIconModule } from '@angular/material/icon';
+import { EditSupervisorLoadComponent } from './editSupervisorLoad/editSupervisorLoad.component';
 
 @Component({
   selector: 'tc-current-diploma-cycle',
   templateUrl: './currentDiplomaCycle.component.html',
   styleUrl: './currentDiplomaCycle.component.scss',
-  imports: [BachelorInfoCardComponent, MatButtonModule, MatDividerModule],
+  imports: [
+    BachelorInfoCardComponent,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+  ],
 })
 export class CurrentDiplomaCycleComponent implements OnInit {
   public supervisorsWithBachelors: Signal<SupervisorWithBachelors[]>;
@@ -27,16 +34,19 @@ export class CurrentDiplomaCycleComponent implements OnInit {
     private dialog: MatDialog,
   ) {
     this.supervisorsWithBachelors = computed(() => {
-      return this.supervisorService.supervisors().map((supervisor) => {
-        const bachelorsOfSupervisor = this.bachelorService
-          .bachelors()
-          .filter((b) => b.supervisor_id === supervisor.supervisor_id);
+      return this.supervisorService
+        .supervisors()
+        .map((supervisor) => {
+          const bachelorsOfSupervisor = this.bachelorService
+            .bachelors()
+            .filter((b) => b.supervisor_id === supervisor.supervisor_id);
 
-        return {
-          ...supervisor,
-          bachelors: bachelorsOfSupervisor,
-        };
-      });
+          return {
+            ...supervisor,
+            bachelors: bachelorsOfSupervisor,
+          };
+        })
+        .sort((a, b) => a.teacher.last_name.localeCompare(b.teacher.last_name));
     });
 
     this.bachelorsWithoutSupervisor = computed(() =>
@@ -62,5 +72,11 @@ export class CurrentDiplomaCycleComponent implements OnInit {
 
   openEndDiplomaCycleDialog(): void {
     const dialogRef = this.dialog.open(EndDiplomaCycleComponent);
+  }
+
+  openEditMaxLoadDialog(supervisorId: string, maxLoad: number) {
+    this.dialog.open(EditSupervisorLoadComponent, {
+      data: { supervisorId, maxLoad },
+    });
   }
 }

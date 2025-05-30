@@ -17,7 +17,6 @@
   <div>
     <div class="supervisor-info">
       <h2>Студенти без керівника</h2>
-      <mat-divider vertical="true"></mat-divider>
       <p class="bachelors-count">{{ bachelorsWithoutSupervisor().length }}</p>
     </div>
     <div>
@@ -38,10 +37,21 @@
             {{ supervisor.teacher.first_name }}
             {{ supervisor.teacher.second_name }}
           </h2>
-          <mat-divider vertical="true"></mat-divider>
           <p class="bachelors-count">
             {{ supervisor._count.bachelors }}/{{ supervisor.max_load }}
           </p>
+          <button
+            mat-icon-button
+            class="edit-icon"
+            (click)="
+              openEditMaxLoadDialog(
+                supervisor.supervisor_id,
+                supervisor.max_load
+              )
+            "
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
         </div>
         <div>
           @for (bachelor of supervisor.bachelors; track $index) {

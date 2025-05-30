@@ -68,4 +68,13 @@ export class SupervisorService {
         map((response) => response.data.supervisionRequests),
       );
   }
+
+  public changeSupervisorMaxLoad(supervisorId: string, maxLoad: number) {
+    return this.http
+      .patch<ApiResponse>(
+        this.supervisorsEndpoint + `/${supervisorId}/change-max-load`,
+        { maxLoad },
+      )
+      .pipe(map((response) => response.data.updatedSupervisor));
+  }
 }
