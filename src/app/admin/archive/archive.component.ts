@@ -44,4 +44,16 @@ export class ArchiveComponent {
       .updateArchivedBachelorsByYear(this.archivedYears()[event.pageIndex])
       .subscribe();
   }
+
+  public downloadReport() {
+    const selectedYear = this.selectedYear();
+    if (selectedYear) {
+      this.archiveService.getReportFile(selectedYear).subscribe((blob) => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `Report${selectedYear}.xlsx`;
+        link.click();
+      });
+    }
+  }
 }

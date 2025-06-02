@@ -40,4 +40,10 @@ export class ArchiveService {
         map((response) => response.data.archivedBachelors),
       );
   }
+
+  public getReportFile(year: number) {
+    return this.http.get(this.archiveEndpoint + `/years/${year}/report`, {
+      responseType: 'blob',
+    });
+  }
 }

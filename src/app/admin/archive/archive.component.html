@@ -86,7 +86,7 @@
   <mat-divider class="divider"></mat-divider>
 
   <div class="controls">
-    <button mat-flat-button>Завантажити Подання</button>
+    <button mat-flat-button (click)="downloadReport()">Завантажити Звіт</button>
 
     <mat-paginator
       [length]="archivedYears().length"
