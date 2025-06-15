@@ -180,4 +180,11 @@ export class BachelorService {
       responseType: 'blob',
     });
   }
+
+  public assignTopics() {
+    return this.http.post<ApiResponse>(
+      this.bachelorsEndpoint + '/assign-topics',
+      {},
+    );
+  }
 }

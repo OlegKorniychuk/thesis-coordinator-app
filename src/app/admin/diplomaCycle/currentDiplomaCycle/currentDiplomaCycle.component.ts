@@ -13,6 +13,7 @@ import { EndDiplomaCycleComponent } from './endDiplomaCycle/endDiplomaCycle.comp
 import { MatIconModule } from '@angular/material/icon';
 import { EditSupervisorLoadComponent } from './editSupervisorLoad/editSupervisorLoad.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AssignTopicsComponent } from './assignTopics/assignTopic.component';
 
 @Component({
   selector: 'tc-current-diploma-cycle',
@@ -80,6 +81,10 @@ export class CurrentDiplomaCycleComponent implements OnInit {
     this.dialog.open(EditSupervisorLoadComponent, {
       data: { supervisorId, maxLoad },
     });
+  }
+
+  openAssignTopicsDialog(): void {
+    this.dialog.open(AssignTopicsComponent);
   }
 
   downloadBachelorsCredentials() {
