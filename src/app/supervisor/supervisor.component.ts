@@ -9,6 +9,9 @@ import { AuthService } from '../services/auth.service';
 import { SupervisorWithLoad } from '../models/supervisor.model';
 import { SupervisionRequestStatus } from '../models/bachelor.model';
 import { Teacher } from '../models/teacher.model';
+import { DiplomaCycleInfoComponent } from '../components/diplomaCycleInfo/diplomaCycleInfo.component';
+import { DiplomaCycleService } from '../services/diplomaCycle.service';
+import { DiplomaCycleData } from '../models/diplomaCycleData.model';
 
 @Component({
   selector: 'tc-supervisor',
@@ -22,18 +25,22 @@ import { Teacher } from '../models/teacher.model';
     MatButtonModule,
     MatDividerModule,
     LogoutComponent,
+    DiplomaCycleInfoComponent,
   ],
 })
 export class SupervisorComponent implements OnInit {
   public supervisor: Signal<SupervisorWithLoad | null>;
   public activeRequestsCount: Signal<number>;
   public supervisorFullName: Signal<string>;
+  public diplomaCycle: Signal<DiplomaCycleData | null>;
 
   constructor(
     private supervisorService: SupervisorService,
     private authService: AuthService,
+    private diplomaCycleService: DiplomaCycleService,
   ) {
     this.supervisor = this.supervisorService.supervisorUser;
+    this.diplomaCycle = this.diplomaCycleService.diplomaCycleData;
     this.activeRequestsCount = computed(() =>
       this.supervisorService
         .supervisorUserRequests()

@@ -1,0 +1,25 @@
+<div class="container">
+  @if (diplomaCycle()) {
+    <div class="info-block">
+      <p class="info-header">Вибір керівника:</p>
+      <p class="info-body">
+        {{ diplomaCycle()!.start_date | date: "d MMMM yyyy" }} -
+        {{
+          diplomaCycle()!.supervisor_selection_end_date | date: "d MMMM yyyy"
+        }}
+      </p>
+    </div>
+    <div class="info-block">
+      <p class="info-header">Вибір теми:</p>
+      <p class="info-body">
+        {{
+          diplomaCycle()!.supervisor_selection_end_date | date: "d MMMM yyyy"
+        }}
+        -
+        {{ diplomaCycle()!.topic_selection_end_date | date: "d MMMM yyyy" }}
+      </p>
+    </div>
+  } @else {
+    <p>Завантаження...</p>
+  }
+</div>

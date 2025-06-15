@@ -1,10 +1,13 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { LogoutComponent } from '../components/logout/logout.component';
+import { DiplomaCycleService } from '../services/diplomaCycle.service';
+import { DiplomaCycleData } from '../models/diplomaCycleData.model';
+import { DiplomaCycleInfoComponent } from '../components/diplomaCycleInfo/diplomaCycleInfo.component';
 
 @Component({
   selector: 'tc-admin',
@@ -18,6 +21,13 @@ import { LogoutComponent } from '../components/logout/logout.component';
     MatButtonModule,
     MatDividerModule,
     LogoutComponent,
+    DiplomaCycleInfoComponent,
   ],
 })
-export class AdminComponent {}
+export class AdminComponent {
+  public diplomaCycle: Signal<DiplomaCycleData | null>;
+
+  constructor(private diplomaCycleService: DiplomaCycleService) {
+    this.diplomaCycle = this.diplomaCycleService.diplomaCycleData;
+  }
+}

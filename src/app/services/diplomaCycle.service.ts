@@ -3,14 +3,13 @@ import { computed, Injectable, Signal, signal } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { settings } from 'settings/dev.settings';
 import { ApiResponse } from 'src/app/models/apiResponse.model';
-import { UserData } from 'src/app/models/userData.model';
 import { DiplomaCycleData } from '../models/diplomaCycleData.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiplomaCycleService {
-  public diplomaCycleData = signal<UserData | null>(null);
+  public diplomaCycleData = signal<DiplomaCycleData | null>(null);
   public isActiveCycle: Signal<boolean> = computed(
     () => !!this.diplomaCycleData(),
   );

@@ -1,0 +1,16 @@
+@use "@angular/material" as mat;
+
+.info-block {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.info-header {
+  color: var(--mat-sys-on-primary-container);
+}
+
+.info-body {
+  margin-left: 3px;
+}

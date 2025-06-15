@@ -7,6 +7,9 @@ import { LogoutComponent } from '../components/logout/logout.component';
 import { BachelorService } from '../services/bachelor.service';
 import { AuthService } from '../services/auth.service';
 import { Student } from '../models/bachelor.model';
+import { DiplomaCycleService } from '../services/diplomaCycle.service';
+import { DiplomaCycleData } from '../models/diplomaCycleData.model';
+import { DiplomaCycleInfoComponent } from '../components/diplomaCycleInfo/diplomaCycleInfo.component';
 
 @Component({
   selector: 'tc-bachelor',
@@ -20,15 +23,19 @@ import { Student } from '../models/bachelor.model';
     MatButtonModule,
     MatDividerModule,
     LogoutComponent,
+    DiplomaCycleInfoComponent,
   ],
 })
 export class BachelorComponent implements OnInit {
   public bachelorFullName: Signal<string>;
+  public diplomaCycle: Signal<DiplomaCycleData | null>;
 
   constructor(
     private bachelorService: BachelorService,
     private authService: AuthService,
+    private diplomaCycleService: DiplomaCycleService,
   ) {
+    this.diplomaCycle = this.diplomaCycleService.diplomaCycleData;
     this.bachelorFullName = computed(() => {
       const student: Student | undefined =
         this.bachelorService.bachelorUser()?.student;

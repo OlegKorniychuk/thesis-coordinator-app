@@ -2,6 +2,11 @@
   <mat-toolbar>
     <mat-toolbar-row>
       <div class="toolbar">
+        <tc-diploma-cycle-info
+          [diplomaCycle]="diplomaCycle()"
+          class="diploma-cycle-info-block"
+        >
+        </tc-diploma-cycle-info>
         <div>Сторінка Студента</div>
         <div class="logout-block">
           <p class="logout-fullname">{{ bachelorFullName() }}</p>
