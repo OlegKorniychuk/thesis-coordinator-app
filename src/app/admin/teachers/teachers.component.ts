@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddTeacherComponent } from './addTeacher/addTeacher.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'tc-teachers',
@@ -23,13 +24,15 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     MatDialogModule,
     MatDividerModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }],
 })
 export class TeachersComponent {
   public teachers: Signal<Teacher[]>;
   public totalCount: Signal<number>;
-  public resultsPerPage: number = 10;
+  public resultsPerPage: number = 4;
 
   constructor(
     private teachersService: TeachersService,

@@ -1,33 +1,32 @@
 <div>
-  <table mat-table [dataSource]="teachers()" class="mat-elevation-z8">
-    <ng-container matColumnDef="index">
-      <th mat-header-cell *matHeaderCellDef>#</th>
-      <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>ПІБ</th>
-      <td mat-cell *matCellDef="let element">
-        {{`${element.last_name} ${element.first_name} ${element.second_name}`}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>Посада</th>
-      <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="degree">
-      <th mat-header-cell *matHeaderCellDef>Ступінь</th>
-      <td mat-cell *matCellDef="let element">{{ element.academic_degree }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="['name', 'position', 'degree']"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: ['name', 'position', 'degree']"
-    ></tr>
-  </table>
+  @for (teacher of teachers(); track $index) {
+    <div class="teacher-info-card">
+      <div class="card-container">
+        <mat-card>
+          <mat-card-header>
+            <h2>
+              {{ teacher.last_name }} {{ teacher.first_name }}
+              {{ teacher.second_name }}
+            </h2>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row-container">
+              <p class="row-header">Посада:</p>
+              <p>{{ teacher.position }}</p>
+            </div>
+            <div class="row-container">
+              <p class="row-header">Науковий ступінь:</p>
+              <p>{{ teacher.academic_degree }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="teacher-controls">
+        <button mat-stroked-button class="teacher-button">Редагувати</button>
+        <button mat-flat-button class="teacher-button">Видалити</button>
+      </div>
+    </div>
+  }
 
   <mat-divider class="divider"></mat-divider>
 
