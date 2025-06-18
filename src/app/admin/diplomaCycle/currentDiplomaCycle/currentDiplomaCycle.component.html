@@ -35,6 +35,20 @@
       Завершити дипломний період
     </button>
   </div>
+  <div class="stats">
+    <div class="stats-item">
+      <p class="stats-item-header">Всього студентів:</p>
+      <p>{{ getStudentsTotalCount() }}</p>
+    </div>
+    <div class="stats-item">
+      <p class="stats-item-header">Всього керівників:</p>
+      <p>{{ supervisorsWithBachelors().length }}</p>
+    </div>
+    <div class="stats-item">
+      <p class="stats-item-header">Сумарне навантаження керівників:</p>
+      <p>{{ getSupervisorsTotalLoad() }}</p>
+    </div>
+  </div>
   <div>
     <div class="expansion-container">
       <mat-expansion-panel>

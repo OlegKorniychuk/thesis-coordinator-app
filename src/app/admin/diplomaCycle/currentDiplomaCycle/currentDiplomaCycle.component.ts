@@ -65,29 +65,29 @@ export class CurrentDiplomaCycleComponent implements OnInit {
       .subscribe(() => this.bachelorService.getBachelors().subscribe());
   }
 
-  openAddBachelorDialog(): void {
+  public openAddBachelorDialog(): void {
     const dialogRef = this.dialog.open(AddStudentComponent);
   }
 
-  openAddSupervisorDialog(): void {
+  public openAddSupervisorDialog(): void {
     const dialogRef = this.dialog.open(AddSupervisorComponent);
   }
 
-  openEndDiplomaCycleDialog(): void {
+  public openEndDiplomaCycleDialog(): void {
     const dialogRef = this.dialog.open(EndDiplomaCycleComponent);
   }
 
-  openEditMaxLoadDialog(supervisorId: string, maxLoad: number) {
+  public openEditMaxLoadDialog(supervisorId: string, maxLoad: number) {
     this.dialog.open(EditSupervisorLoadComponent, {
       data: { supervisorId, maxLoad },
     });
   }
 
-  openAssignTopicsDialog(): void {
+  public openAssignTopicsDialog(): void {
     this.dialog.open(AssignTopicsComponent);
   }
 
-  downloadBachelorsCredentials() {
+  public downloadBachelorsCredentials() {
     this.bachelorService.getCredentials().subscribe((blob) => {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -96,12 +96,29 @@ export class CurrentDiplomaCycleComponent implements OnInit {
     });
   }
 
-  downloadSupervisorsCredentials() {
+  public downloadSupervisorsCredentials() {
     this.supervisorService.getCredentials().subscribe((blob) => {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'SupervisorsCredentials.xlsx';
       link.click();
     });
+  }
+
+  public getSupervisorsTotalLoad(): number {
+    return this.supervisorsWithBachelors().reduce(
+      (acc, curr) => acc + curr.max_load,
+      0,
+    );
+  }
+
+  public getStudentsTotalCount(): number {
+    const studentsWithSupervisors = this.supervisorsWithBachelors().reduce(
+      (acc, curr) => acc + curr._count.bachelors,
+      0,
+    );
+    const studentsWithoutSupervisors = this.bachelorsWithoutSupervisor().length;
+
+    return studentsWithSupervisors + studentsWithoutSupervisors;
   }
 }
